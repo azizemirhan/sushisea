@@ -4,8 +4,11 @@
  * .git ve node_modules yüklenmez, 25 MB limit aşılmaz.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const root = path.join(__dirname, '..');
 const dist = path.join(root, 'dist');
