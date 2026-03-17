@@ -5203,41 +5203,102 @@ function formatServiceFallbackAddress(zone, point) {
   return `${zone.properties.name} · ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
 }
 
-function formatReverseAddress(data, zone, point) {
-  const address = data?.address || {};
-  const area =
-    address.suburb ||
-    address.neighbourhood ||
-    address.quarter ||
-    address.city_district ||
-    address.town ||
-    address.village ||
-    zone?.properties?.badge ||
-    zone?.properties?.name ||
-    'Alanya';
-  const road =
+function cleanServiceAddressPart(value) {
+  return String(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*,\s*/g, ', ')
+    .trim();
+}
+
+function dedupeServiceAddressParts(parts) {
+  const seen = new Set();
+  return parts.filter(part => {
+    const normalized = cleanServiceAddressPart(part).toLocaleLowerCase('tr-TR');
+    if (!normalized || seen.has(normalized)) return false;
+    seen.add(normalized);
+    return true;
+  });
+}
+
+function buildServiceAddressFromParts(address, zone) {
+  const streetName =
     address.road ||
     address.pedestrian ||
     address.residential ||
     address.footway ||
     address.path ||
+    address.cycleway ||
     address.amenity ||
     '';
-  const houseNumber = address.house_number ? ` ${address.house_number}` : '';
-  const parts = [];
+  const houseNumber = address.house_number || '';
+  const streetLine = cleanServiceAddressPart([streetName, houseNumber].filter(Boolean).join(' '));
+  const neighborhoodLine = cleanServiceAddressPart(
+    address.neighbourhood ||
+    address.suburb ||
+    address.quarter ||
+    address.hamlet ||
+    address.city_block ||
+    ''
+  );
+  const districtLine = cleanServiceAddressPart(
+    address.city_district ||
+    address.town ||
+    address.municipality ||
+    address.borough ||
+    ''
+  );
+  const cityLine = cleanServiceAddressPart(
+    address.city ||
+    address.county ||
+    address.state_district ||
+    address.state ||
+    'Alanya'
+  );
 
-  if (area) parts.push(area);
-  if (road) parts.push(`${road}${houseNumber}`);
+  const fullParts = dedupeServiceAddressParts([
+    streetLine,
+    neighborhoodLine,
+    districtLine,
+    cityLine
+  ]);
 
-  if (!parts.length && data?.display_name) {
-    parts.push(...String(data.display_name).split(',').map(part => part.trim()).filter(Boolean).slice(0, 2));
-  }
+  const compactParts = dedupeServiceAddressParts([
+    neighborhoodLine || zone?.properties?.badge || zone?.properties?.name || '',
+    streetLine || districtLine || cityLine
+  ]);
 
-  const full = parts.join(' · ') || formatServiceFallbackAddress(zone, point);
+  return {
+    fullParts,
+    compactParts,
+    hasStreet: Boolean(streetName)
+  };
+}
+
+function formatReverseAddress(data, zone, point) {
+  const address = data?.address || {};
+  const displayParts = dedupeServiceAddressParts(
+    String(data?.display_name || '')
+      .split(',')
+      .map(part => cleanServiceAddressPart(part))
+      .filter(Boolean)
+      .slice(0, 5)
+  );
+  const fromAddress = buildServiceAddressFromParts(address, zone);
+  const fullParts = dedupeServiceAddressParts([
+    ...fromAddress.fullParts,
+    ...displayParts
+  ]).slice(0, 5);
+  const compactParts = dedupeServiceAddressParts([
+    ...fromAddress.compactParts,
+    ...displayParts.slice(0, 2)
+  ]).slice(0, 2);
+  const full = fullParts.join(', ') || formatServiceFallbackAddress(zone, point);
+  const compact = compactParts.join(' · ') || truncateServiceLabel(full);
+
   return {
     full,
-    compact: truncateServiceLabel(full),
-    resolved: Boolean(road || data?.display_name)
+    compact: truncateServiceLabel(compact),
+    resolved: Boolean(fromAddress.hasStreet || displayParts.length)
   };
 }
 
