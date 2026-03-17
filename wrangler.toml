@@ -1,7 +1,8 @@
-# Cloudflare Pages – sushisea
-# Dashboard'dan Git ile deploy ediyorsan bu dosya zorunlu değil.
-# CLI ile "wrangler pages deploy ." kullanacaksan veya env/ayar ekleyeceksen faydalı.
+# Cloudflare – sushisea (statik site)
+# "Deploy command" olarak npx wrangler deploy kullanılıyorsa bu [assets] gerekli.
 
 name = "sushisea"
 compatibility_date = "2026-03-17"
-pages_build_output_dir = "."
+
+[assets]
+directory = "."
