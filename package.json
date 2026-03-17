@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "fetch-products": "node fetch-products.js",
-    "download-images": "node download-images.js"
+    "download-images": "node download-images.js",
+    "build": "node scripts/prepare-deploy.js"
   },
   "dependencies": {
     "puppeteer": "^23.0.0"
