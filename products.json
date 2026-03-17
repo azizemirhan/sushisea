@@ -1,0 +1,1036 @@
+{
+  "source": "https://sushi-market.com.tr/alanya/?group=velikiipost",
+  "fetchedAt": "2026-03-16T18:14:01.801Z",
+  "count": 150,
+  "products": [
+    {
+      "name": "Kappa maki",
+      "price": "189 ₺",
+      "description": "Cucumber, sesame, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_48/65870f4643f00-800x800.png",
+      "localImage": "images/0-kappa-maki.png"
+    },
+    {
+      "name": "Warm-eggplants salad",
+      "price": "249 ₺",
+      "description": "Eggplants, tomates, teriyaki sauce, sweet-chilli sauce, cilantro, sesame",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1449/632985c42cbdb-800x800.jpg",
+      "localImage": "images/1-warm-eggplants-salad.jpg"
+    },
+    {
+      "name": "Maki with avokado",
+      "price": "249 ₺",
+      "description": "Avocado, sesame, rice, nori, sesame sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1430/624716bc9741f-800x800.jpg",
+      "localImage": "images/2-maki-with-avokado.jpg"
+    },
+    {
+      "name": "Yasai maki",
+      "price": "219 ₺",
+      "description": "Fresh cucumber, green onion, bell pepper, ginger, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1435/658856a734f6e-800x800.png",
+      "localImage": "images/3-yasai-maki.png"
+    },
+    {
+      "name": "Mushroom soup",
+      "price": "249 ₺",
+      "description": "Champignons, shiitake mushrooms, sesame oil, onions, sunflower oil",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1519/660135491f8f7-800x800.png",
+      "localImage": "images/4-mushroom-soup.png"
+    },
+    {
+      "name": "Shiitake maki",
+      "price": "209 ₺",
+      "description": "Shiitake mushrooms, rice, nori (8 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1515/65fc03b085aac-800x800.png",
+      "localImage": "images/5-shiitake-maki.png"
+    },
+    {
+      "name": "Maki mix",
+      "price": "209 ₺",
+      "description": "Shiitake mushrooms, takuan, chuka, rice, nori (8 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1520/66013cbd4fdb9-800x800.png",
+      "localImage": "images/6-maki-mix.png"
+    },
+    {
+      "name": "Student set",
+      "price": "329 ₺",
+      "description": "Chicken Katsu Roll, chicken wok in teriyaki sauce, drink",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1560/694261a735444-800x800.png",
+      "localImage": "images/7-student-set.png"
+    },
+    {
+      "name": "Tempura canada + philadelphia with cucumber",
+      "price": "499 ₺",
+      "description": "Tempura Canada (8 pcs), Philadelphia with cucumber (8 pcs)",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1555/692439708344b-800x800.png",
+      "localImage": "images/8-tempura-canada-philadelphia-with-cucumber.png"
+    },
+    {
+      "name": "Tempura canada + tempura philadelphia",
+      "price": "499 ₺",
+      "description": "Tempura Canada (8 pcs), Tempura Philadelphia (8 pcs)",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1556/692442b9bc8bc-800x800.png",
+      "localImage": "images/9-tempura-canada-tempura-philadelphia.png"
+    },
+    {
+      "name": "Hot wave",
+      "price": "675 ₺",
+      "description": "Tempura Canada (8 pcs), Baked Salmon in Teriyaki sauce (8 pcs), Ebi San (5 pcs)",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1557/692446e3629d6-800x800.png",
+      "localImage": "images/10-hot-wave.png"
+    },
+    {
+      "name": "Shock + tempura gold",
+      "price": "088 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1558/6924480da7ea0-800x800.PNG",
+      "localImage": "images/11-shock-tempura-gold.png"
+    },
+    {
+      "name": "Philadelphia with cucumber gold",
+      "price": "369 ₺",
+      "description": "Salmon, cream cheese, cucumber, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1543/67bf4387aed3d-800x800.png",
+      "localImage": "images/12-philadelphia-with-cucumber-gold.png"
+    },
+    {
+      "name": "Philadelphia gold",
+      "price": "369 ₺",
+      "description": "Salmon, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1541/67bf43011ed2b-800x800.png",
+      "localImage": "images/13-philadelphia-gold.png"
+    },
+    {
+      "name": "California lux gold",
+      "price": "389 ₺",
+      "description": "Tobiko caviar, shrimp, cream cheese, cucumber, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1544/67bf434b5050e-800x800.png",
+      "localImage": "images/14-california-lux-gold.png"
+    },
+    {
+      "name": "Chicken katsu roll",
+      "price": "215 ₺",
+      "description": "Fried chicken, cucumber, cream cheese, rice, sweet chili sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1559/69425801b4f79-800x800.png",
+      "localImage": "images/15-chicken-katsu-roll.png"
+    },
+    {
+      "name": "Spring roll",
+      "price": "349 ₺",
+      "description": "Mamenori, avocado, Japanese omelet, creamy salmon teriyaki",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1585/69a563e28e5f5-800x800.PNG",
+      "localImage": "images/16-spring-roll.png"
+    },
+    {
+      "name": "Philadelphia light gold",
+      "price": "339 ₺",
+      "description": "Salmon, cream cheese, green onions, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1542/67bf43babb601-800x800.png",
+      "localImage": "images/17-philadelphia-light-gold.png"
+    },
+    {
+      "name": "Wok \"4 mushrooms\"",
+      "price": "299 ₺",
+      "description": "Mushrooms: Judas's ears, muer, shiitake, champignons; boiled noodles, sesame, sunflower oil, cilantro, sweet chili sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1550/68135ee3b6426-800x800.png",
+      "localImage": "images/18-wok-4-mushrooms.png"
+    },
+    {
+      "name": "General tso's chicken",
+      "price": "255 ₺",
+      "description": "Chicken thigh, rice, sweet chili sauce, starch, green onion",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1554/6890e3c24c837-800x800.jpg",
+      "localImage": "images/19-general-tso-s-chicken.jpg"
+    },
+    {
+      "name": "Sushi with salmon",
+      "price": "84 ₺",
+      "description": "Rice, salmon",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_183/658713884427c-800x800.png",
+      "localImage": "images/20-sushi-with-salmon.png"
+    },
+    {
+      "name": "Sushi with eel",
+      "price": "129 ₺",
+      "description": "Rice, eel, nori, unagi sauce, sesame",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_182/6587136d612f2-800x800.png",
+      "localImage": "images/21-sushi-with-eel.png"
+    },
+    {
+      "name": "Philadelphia lux with avokado",
+      "price": "349 ₺",
+      "description": "Salmon, tobiko caviar, avocado, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1433/624716665513b-800x800.jpeg",
+      "localImage": "images/22-philadelphia-lux-with-avokado.jpeg"
+    },
+    {
+      "name": "Philadelphia with cucumber",
+      "price": "299 ₺",
+      "description": "Salmon, cream cheese, cucumber, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_58/6587105509209-800x800.png",
+      "localImage": "images/23-philadelphia-with-cucumber.png"
+    },
+    {
+      "name": "Philadelphia duet",
+      "price": "319 ₺",
+      "description": "Lightly salted salmon, tuna, cream cheese, cucumber, rice, nori319 ₺Be later",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1535/6755cabfd1aee-800x800.png",
+      "localImage": "images/24-philadelphia-duet.png"
+    },
+    {
+      "name": "Philaderphia luxe",
+      "price": "349 ₺",
+      "description": "Salmon, tobiko caviar, cucumber, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_57/65871038d6a2f-800x800.png",
+      "localImage": "images/25-philaderphia-luxe.png"
+    },
+    {
+      "name": "Philadelphia",
+      "price": "299 ₺",
+      "description": "Salmon, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_55/65870fe9aab12-800x800.png",
+      "localImage": "images/26-philadelphia.png"
+    },
+    {
+      "name": "California lux",
+      "price": "309 ₺",
+      "description": "Tobiko caviar, shrimp, cream cheese, cucumber, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_47/65870f2f67326-800x800.png",
+      "localImage": "images/27-california-lux.png"
+    },
+    {
+      "name": "Philadelphia with avokado",
+      "price": "319 ₺",
+      "description": "Salmon, cream cheese, avocado, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1432/624716826d39b-800x800.jpg",
+      "localImage": "images/28-philadelphia-with-avokado.jpg"
+    },
+    {
+      "name": "The dragon",
+      "price": "419 ₺",
+      "description": "Eel, cream cheese, takuan, unagi sauce, sesame seeds, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_44/65870e94046ec-800x800.png",
+      "localImage": "images/29-the-dragon.png"
+    },
+    {
+      "name": "Ebi san",
+      "price": "229 ₺",
+      "description": "Fried shrimps, cream cheese, rice, sweet-chili sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1443/6588584ebdde1-800x800.jpg",
+      "localImage": "images/30-ebi-san.jpg"
+    },
+    {
+      "name": "California",
+      "price": "299 ₺",
+      "description": "Tobiko caviar, crab imitation, cucumber, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_46/65870f1b767b7-800x800.png",
+      "localImage": "images/31-california.png"
+    },
+    {
+      "name": "Siake maki",
+      "price": "199 ₺",
+      "description": "Salmon, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_54/65870fceae6d1-800x800.png",
+      "localImage": "images/32-siake-maki.png"
+    },
+    {
+      "name": "Bonito maki",
+      "price": "289 ₺",
+      "description": "Tuna, cream cheese, salmon, cucumber, dried tuna flakes",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_42/65870e528ba0f-800x800.png",
+      "localImage": "images/33-bonito-maki.png"
+    },
+    {
+      "name": "Ebi kyu-ri",
+      "price": "249 ₺",
+      "description": "Shrimps, eel, cream-cheese, rice, teriyaki sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1444/658857b696bb4-800x800.png",
+      "localImage": "images/34-ebi-kyu-ri.png"
+    },
+    {
+      "name": "Moreman",
+      "price": "329 ₺",
+      "description": "Salmon, cream cheese, tuna, tobiko caviar, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_415/658845edc825f-800x800.png",
+      "localImage": "images/35-moreman.png"
+    },
+    {
+      "name": "Boston",
+      "price": "279 ₺",
+      "description": "Shrimp, tobiko caviar, cream cheese, cucumber, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_43/65870e6b6e9ad-800x800.png",
+      "localImage": "images/36-boston.png"
+    },
+    {
+      "name": "Maki with shrimp",
+      "price": "269 ₺",
+      "description": "Shrimp, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_276/658714b617723-800x800.png",
+      "localImage": "images/37-maki-with-shrimp.png"
+    },
+    {
+      "name": "Philadelphia light",
+      "price": "269 ₺",
+      "description": "Salmon, cream cheese, green onions, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_56/65871020e4449-800x800.png",
+      "localImage": "images/38-philadelphia-light.png"
+    },
+    {
+      "name": "Philadelphia cream",
+      "price": "389 ₺",
+      "description": "Salted salmon, mixed rice, nori, cream cheese, salmon caviar, green onion",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1403/6588555e7a77f-800x800.png",
+      "localImage": "images/39-philadelphia-cream.png"
+    },
+    {
+      "name": "Maki with avocado and salmon",
+      "price": "269 ₺",
+      "description": "Avocado, salmon, sesame, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1431/624716a7a63db-800x800.jpeg",
+      "localImage": "images/40-maki-with-avocado-and-salmon.jpeg"
+    },
+    {
+      "name": "Bonsai",
+      "price": "289 ₺",
+      "description": "Turkey, cream cheese, cucumber, sesame, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_41/65870e17ede35-800x800.png",
+      "localImage": "images/41-bonsai.png"
+    },
+    {
+      "name": "Salmon gunkan",
+      "price": "99 ₺",
+      "description": "Salmon, Spicy sauce, tobiko caviar, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_254/658713a580b22-800x800.png",
+      "localImage": "images/42-salmon-gunkan.png"
+    },
+    {
+      "name": "Lava",
+      "price": "249 ₺",
+      "description": "Salmon, cream cheese, crab imitation, cucumber, spicy sauce, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_50/65870f5cc865d-800x800.png",
+      "localImage": "images/43-lava.png"
+    },
+    {
+      "name": "Marseilles",
+      "price": "299 ₺",
+      "description": "Salmon, crab imitation, cream cheese, Spicy sauce, tobiko caviar, nori, rice in tuna flakes",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_824/658852357e7cf-800x800.png",
+      "localImage": "images/44-marseilles.png"
+    },
+    {
+      "name": "Dragon light",
+      "price": "339 ₺",
+      "description": "Eel, cream cheese, takuan, unagi sauce, tobiko caviar, sesame seeds, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_45/65870ea841892-800x800.png",
+      "localImage": "images/45-dragon-light.png"
+    },
+    {
+      "name": "Chiken roll",
+      "price": "249 ₺",
+      "description": "Smoked chicken breast, tomato, bell pepper, Spicy sauce, rice, nori, outside white sesame",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_264/658713e49f219-800x800.png",
+      "localImage": "images/46-chiken-roll.png"
+    },
+    {
+      "name": "Unagi wakame",
+      "price": "309 ₺",
+      "description": "Chukka algae, eel, cream-cheese, cucumber, rice, sesame",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1445/6328341d382ce-800x800.jpg",
+      "localImage": "images/47-unagi-wakame.jpg"
+    },
+    {
+      "name": "Shock 2.0 (40 pcs)",
+      "price": "529 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1407/65885592632cd-800x800.png",
+      "localImage": "images/48-shock-2-0-40-pcs.png"
+    },
+    {
+      "name": "Baked mix hot and creamy",
+      "price": "779 ₺",
+      "description": "Baked crab (8 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_820/65885203760c3-800x800.png",
+      "localImage": "images/49-baked-mix-hot-and-creamy.png"
+    },
+    {
+      "name": "Philamania-lux set (40 pcs)",
+      "price": "025 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_386/6588424387615-800x800.png",
+      "localImage": "images/50-philamania-lux-set-40-pcs.png"
+    },
+    {
+      "name": "Tempura gold",
+      "price": "749 ₺",
+      "description": "Tempura Philadelphia (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_393/658843f219e49-800x800.png",
+      "localImage": "images/51-tempura-gold.png"
+    },
+    {
+      "name": "Mega hit (32 pcs)",
+      "price": "939 ₺",
+      "description": "California (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_389/6588436f0380a-800x800.png",
+      "localImage": "images/52-mega-hit-32-pcs.png"
+    },
+    {
+      "name": "Hit 2.0 set (28 pcs)",
+      "price": "709 ₺",
+      "description": "Missouri (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_390/6588438ca414c-800x800.png",
+      "localImage": "images/53-hit-2-0-set-28-pcs.png"
+    },
+    {
+      "name": "Corporative set (64 pcs)",
+      "price": "223 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_97/658712ef22f15-800x800.png",
+      "localImage": "images/54-corporative-set-64-pcs.png"
+    },
+    {
+      "name": "Philamania set (24 pcs)",
+      "price": "969 ₺",
+      "description": "Philadelphia with shrimp (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_387/6588426619e92-800x800.png",
+      "localImage": "images/55-philamania-set-24-pcs.png"
+    },
+    {
+      "name": "Mega party (50 pc)",
+      "price": "099 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_411/658845a40bebd-800x800.png",
+      "localImage": "images/56-mega-party-50-pc.png"
+    },
+    {
+      "name": "Tokyo mix (32 pcs)",
+      "price": "709 ₺",
+      "description": "Philadelphia roll (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_408/65884577e4252-800x800.png",
+      "localImage": "images/57-tokyo-mix-32-pcs.png"
+    },
+    {
+      "name": "The fight fish (16 pcs)",
+      "price": "499 ₺",
+      "description": "Baked with salmon (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_468/6588467420e07-800x800.png",
+      "localImage": "images/58-the-fight-fish-16-pcs.png"
+    },
+    {
+      "name": "Big set (48 pc)",
+      "price": "999 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_391/658843b8b547f-800x800.png",
+      "localImage": "images/59-big-set-48-pc.png"
+    },
+    {
+      "name": "Vegeterian set",
+      "price": "529 ₺",
+      "description": "Ginger yasai 4, yasai tempura 4, kappa maki 8, maki with avokado 4, maki with takuwan 4, maki with chukka algae 4",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1442/6327310a6fb63-800x800.jpg",
+      "localImage": "images/60-vegeterian-set.jpg"
+    },
+    {
+      "name": "From dusk till dawn (20 pcs)",
+      "price": "669 ₺",
+      "description": "Tempura duet (4 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_469/6588468e8ad86-800x800.png",
+      "localImage": "images/61-from-dusk-till-dawn-20-pcs.png"
+    },
+    {
+      "name": "Tete-a-tete (28 pcs)",
+      "price": "769 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_407/6588454e0d814-800x800.png",
+      "localImage": "images/62-tete-a-tete-28-pcs.png"
+    },
+    {
+      "name": "Fish-n-roll set (18 pcs)",
+      "price": "929 ₺",
+      "description": "Salmon sushi (5 pcs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_414/658845bfb9731-800x800.png",
+      "localImage": "images/63-fish-n-roll-set-18-pcs.png"
+    },
+    {
+      "name": "The legend (240 pcs)",
+      "price": "555 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_100/6587131f1efb8-800x800.png",
+      "localImage": "images/64-the-legend-240-pcs.png"
+    },
+    {
+      "name": "The imperial set (627 pcs)",
+      "price": "735 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_101/658713501090d-800x800.png",
+      "localImage": "images/65-the-imperial-set-627-pcs.png"
+    },
+    {
+      "name": "Canada tempura",
+      "price": "269 ₺",
+      "description": "Salmon, cream cheese, fresh cucumber, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_34/65870cfb79586-800x800.png",
+      "localImage": "images/66-canada-tempura.png"
+    },
+    {
+      "name": "Philadelphia tempura",
+      "price": "299 ₺",
+      "description": "Salmon, cream cheese, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_30/65870b84b5dad-800x800.png",
+      "localImage": "images/67-philadelphia-tempura.png"
+    },
+    {
+      "name": "Spicy tempura",
+      "price": "259 ₺",
+      "description": "Shrimp, cream cheese, rice, nori, Panko, topped with spicy Lava sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_291/6587157bb1ff5-800x800.png",
+      "localImage": "images/68-spicy-tempura.png"
+    },
+    {
+      "name": "Singapore tempura",
+      "price": "329 ₺",
+      "description": "Eel, cream cheese, rice, nori, Panko , topped with cheese, salmon caviar (ikura) and a green onion flake",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_32/65870cb075e85-800x800.png",
+      "localImage": "images/69-singapore-tempura.png"
+    },
+    {
+      "name": "Sezar tempura",
+      "price": "299 ₺",
+      "description": "Eel, cream cheese, takuan, unagi sauce, tobiko caviar, sesame seeds, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_293/658715ad09cfd-800x800.png",
+      "localImage": "images/70-sezar-tempura.png"
+    },
+    {
+      "name": "Sensei",
+      "price": "269 ₺",
+      "description": "Salmon, cream cheese, Tobiko caviar, Spicy sauce, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_35/65870d1384b6b-800x800.png",
+      "localImage": "images/71-sensei.png"
+    },
+    {
+      "name": "Chicken cheese tempura",
+      "price": "259 ₺",
+      "description": "Semi-smoked chicken breast, tomatoes, gherkins, rice, nori, Panko , cheese sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_290/65871555e4343-800x800.png",
+      "localImage": "images/72-chicken-cheese-tempura.png"
+    },
+    {
+      "name": "Yasai tempura",
+      "price": "209 ₺",
+      "description": "Bell pepper, fresh cucumber, chinese cabbage, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_31/65870baf09ad1-800x800.png",
+      "localImage": "images/73-yasai-tempura.png"
+    },
+    {
+      "name": "Tempura duet",
+      "price": "309 ₺",
+      "description": "Shrimp, crab imitation , cream cheese, Spicy sauce, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_287/658715194f9bb-800x800.png",
+      "localImage": "images/74-tempura-duet.png"
+    },
+    {
+      "name": "Norwegian tempura",
+      "price": "269 ₺",
+      "description": "Cold-smoked salmon, cream cheese, gherkins, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_292/65871591c1075-800x800.png",
+      "localImage": "images/75-norwegian-tempura.png"
+    },
+    {
+      "name": "Chiken tempura",
+      "price": "249 ₺",
+      "description": "Semi-smoked chicken breast, cream cheese, tomato, fries, Unagi sauce, rice, nori, Panko",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_288/65871537f3b66-800x800.png",
+      "localImage": "images/76-chiken-tempura.png"
+    },
+    {
+      "name": "Chicken wok (teriyaki)",
+      "price": "269 ₺",
+      "description": "Carrots, bell peppers, Chinese cabbage, green onions, cilantro, white sesame seeds, Wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_352/658840592ed70-800x800.png",
+      "localImage": "images/77-chicken-wok-teriyaki.png"
+    },
+    {
+      "name": "Shrimps wok (teriyaki)",
+      "price": "329 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame seeds, wok seasoning, sauce, udon noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_377/65884184d8d14-800x800.png",
+      "localImage": "images/78-shrimps-wok-teriyaki.png"
+    },
+    {
+      "name": "Chicken wok (spicy)",
+      "price": "269 ₺",
+      "description": "Carrots, bell peppers, Chinese cabbage, green onions, cilantro, white sesame seeds, Wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_350/6588401e6ae90-800x800.png",
+      "localImage": "images/79-chicken-wok-spicy.png"
+    },
+    {
+      "name": "Сяке терияки дон с лососем",
+      "price": "419 ₺",
+      "description": "Лосось в соусе терияки, лук, соус мирин, соевый соус, сахар, рис, кинза, кунжут белый",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1409/6246ce09a4d65-800x800.jpg",
+      "localImage": "images/80-product-80.jpg"
+    },
+    {
+      "name": "Chicken wok (cream)",
+      "price": "269 ₺",
+      "description": "Carrots, bell peppers, Chinese cabbage, green onions, cilantro, white sesame seeds, Wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_351/65884041737b5-800x800.png",
+      "localImage": "images/81-chicken-wok-cream.png"
+    },
+    {
+      "name": "Shrimps wok (spicy)",
+      "price": "329 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame seeds, wok seasoning, sauce, udon noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_375/6588411f8e89f-800x800.png",
+      "localImage": "images/82-shrimps-wok-spicy.png"
+    },
+    {
+      "name": "Shrimps wok (cream)",
+      "price": "329 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame seeds, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_464/6588465f06820-800x800.png",
+      "localImage": "images/83-shrimps-wok-cream.png"
+    },
+    {
+      "name": "Vegetables wok (teriyaki)",
+      "price": "249 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_382/65884225e2503-800x800.png",
+      "localImage": "images/84-vegetables-wok-teriyaki.png"
+    },
+    {
+      "name": "Tya-khan wirh sea-foods",
+      "price": "299 ₺",
+      "description": "Грибы, овощи, рис, креветка, лосось, кальмар, мидии, кунжутное масло",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1446/6588580c78e12-800x800.jpg",
+      "localImage": "images/85-tya-khan-wirh-sea-foods.jpg"
+    },
+    {
+      "name": "Salmon wok (cream)",
+      "price": "329 ₺",
+      "description": "Salmon, carrots, lightly salted salmon, bell pepper, chinese cabbage, green onion, cilantro, white sesame, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_371/658840da651b0-800x800.png",
+      "localImage": "images/86-salmon-wok-cream.png"
+    },
+    {
+      "name": "Salmon wok (teriyaki)",
+      "price": "329 ₺",
+      "description": "Salmon, carrots, lightly salted salmon, bell pepper, chinese cabbage, green onion, cilantro, white sesame, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_372/658840f5c8cdd-800x800.png",
+      "localImage": "images/87-salmon-wok-teriyaki.png"
+    },
+    {
+      "name": "Vegetables wok (spicy)",
+      "price": "249 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame, wok seasoning, sauce, udon noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_380/658841f594285-800x800.png",
+      "localImage": "images/88-vegetables-wok-spicy.png"
+    },
+    {
+      "name": "Vegetables wok (creamy)",
+      "price": "249 ₺",
+      "description": "Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_381/6588420e75abe-800x800.png",
+      "localImage": "images/89-vegetables-wok-creamy.png"
+    },
+    {
+      "name": "Salmon wok (spicy)",
+      "price": "329 ₺",
+      "description": "Salmon, carrots, lightly salted salmon, bell pepper, chinese cabbage, green onion, cilantro, white sesame, wok seasoning, sauce, noodles",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_370/658840be03782-800x800.png",
+      "localImage": "images/90-salmon-wok-spicy.png"
+    },
+    {
+      "name": "Shrimp baked creamy",
+      "price": "248 ₺",
+      "description": "Shrimp, cream cheese, Spicy sauce, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_401/6588444f1080b-800x800.png",
+      "localImage": "images/91-shrimp-baked-creamy.png"
+    },
+    {
+      "name": "Shrimp baked hot",
+      "price": "239 ₺",
+      "description": "Shrimp, cream cheese, Spicy sauce, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1426/65885602ad6b7-800x800.png",
+      "localImage": "images/92-shrimp-baked-hot.png"
+    },
+    {
+      "name": "Baked salmon teriyaki krill",
+      "price": "269 ₺",
+      "description": "Salmon in teriyaki sauce, rice, nori, krill cap",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1532/674c720a24971-800x800.png",
+      "localImage": "images/93-baked-salmon-teriyaki-krill.png"
+    },
+    {
+      "name": "Baked with shiitake krill",
+      "price": "239 ₺",
+      "description": "Shiitake, rice, nori, krill cap",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1531/674c71d922afe-800x800.png",
+      "localImage": "images/94-baked-with-shiitake-krill.png"
+    },
+    {
+      "name": "Geysha kiss",
+      "price": "379 ₺",
+      "description": "Lightly salted salmon, cream cheese, rice, cucumber, nori, krill cap",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1529/674c717cb1b83-800x800.png",
+      "localImage": "images/95-geysha-kiss.png"
+    },
+    {
+      "name": "Salmon baked creamy",
+      "price": "258 ₺",
+      "description": "Salmon, spicy sauce, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_916/658854713948f-800x800.png",
+      "localImage": "images/96-salmon-baked-creamy.png"
+    },
+    {
+      "name": "Salmon baked hot",
+      "price": "249 ₺",
+      "description": "Salmon, spicy sauce, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1434/6588568e51bb2-800x800.png",
+      "localImage": "images/97-salmon-baked-hot.png"
+    },
+    {
+      "name": "Eel baked creamy",
+      "price": "338 ₺",
+      "description": "Eel, fresh cucumber, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_403/658844fbb0381-800x800.png",
+      "localImage": "images/98-eel-baked-creamy.png"
+    },
+    {
+      "name": "Eel baked hot",
+      "price": "329 ₺",
+      "description": "Eel, fresh cucumber, rice, nori, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1428/6588564cd7d07-800x800.png",
+      "localImage": "images/99-eel-baked-hot.png"
+    },
+    {
+      "name": "Tuna baked cream",
+      "price": "258 ₺",
+      "description": "Tuna, cream cheese, fresh cucumber, rice, nori, covered in tuna flakes, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_402/65884489f012e-800x800.png",
+      "localImage": "images/100-tuna-baked-cream.png"
+    },
+    {
+      "name": "Tuna baked",
+      "price": "249 ₺",
+      "description": "Tuna, cream cheese, fresh cucumber, rice, nori, covered in tuna flakes, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1427/6588562c816ff-800x800.png",
+      "localImage": "images/101-tuna-baked.png"
+    },
+    {
+      "name": "Chick-n-cheese baked cream",
+      "price": "318 ₺",
+      "description": "Semi-smoked chicken breast, tomato, cheese sauce, egg pancake, rice, nori, Tobiko caviar, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_404/658845213dfab-800x800.png",
+      "localImage": "images/102-chick-n-cheese-baked-cream.png"
+    },
+    {
+      "name": "Chick-n-cheese baked hot",
+      "price": "309 ₺",
+      "description": "Semi-smoked chicken breast, tomato, cheese sauce, egg pancake, rice, nori, Tobiko caviar, topped with sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1429/6588566bb9d42-800x800.png",
+      "localImage": "images/103-chick-n-cheese-baked-hot.png"
+    },
+    {
+      "name": "Pizza margeritha 30 cm",
+      "price": "259 ₺",
+      "description": "Mozzarella cheese, tomato sauce, herbs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_333/65871b0bdcce2-800x800.png",
+      "localImage": "images/104-pizza-margeritha-30-cm.png"
+    },
+    {
+      "name": "Chicken-cheese pizza 30 cm",
+      "price": "389 ₺",
+      "description": "Turkey, tomatoes, cheese sauce, mozzarella cheese",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_339/6587243e7ed5f-800x800.png",
+      "localImage": "images/105-chicken-cheese-pizza-30-cm.png"
+    },
+    {
+      "name": "Pizza hawaii 30 cm",
+      "price": "429 ₺",
+      "description": "Chicken, pineapple, mozzarella cheese, pizza sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_785/658849aa00fa1-800x800.png",
+      "localImage": "images/106-pizza-hawaii-30-cm.png"
+    },
+    {
+      "name": "Philadelphia pizza 30 cm",
+      "price": "529 ₺",
+      "description": "Salted salmon, salmon caviar, cream cheese, mozzarella cheese, white sesame seeds, tomato sauce, herbs",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_341/65883fdb7f77a-800x800.png",
+      "localImage": "images/107-philadelphia-pizza-30-cm.png"
+    },
+    {
+      "name": "Caesar pizza with salmon, 30 cm",
+      "price": "479 ₺",
+      "description": "Mozzarella cheese, lightly salted salmon, cherry tomatoes, iceberg lettuce, Caesar sauce, Parmesan cheese, pizza sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1465/6516c3ab4d8f2-800x800.jpg",
+      "localImage": "images/108-caesar-pizza-with-salmon-30-cm.jpg"
+    },
+    {
+      "name": "California premium",
+      "price": "415 ₺",
+      "description": "Salted salmon, cream cheese, Masago caviar, avocado, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_911/658854039acf8-800x800.jpg",
+      "localImage": "images/109-california-premium.jpg"
+    },
+    {
+      "name": "Euphoria set",
+      "price": "249 ₺",
+      "description": "Fusion (4 pcs), Fiji (4 pc), California Premium (4 pc), Action (4 pc), Trio Classic (4 pc), Fortune (4 pc), Philadelphia Shrimp (4 pc)",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1452/63a6c714cc992-800x800.jpg",
+      "localImage": "images/110-euphoria-set.jpg"
+    },
+    {
+      "name": "Black mamba",
+      "price": "389 ₺",
+      "description": "Salted salmon, shrimp, crab imitation, cream cheese, tobiko caviar, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_905/6588528fb8117-800x800.png",
+      "localImage": "images/111-black-mamba.png"
+    },
+    {
+      "name": "Poke with salmon",
+      "price": "329 ₺",
+      "description": "Salmon, rice in a creamy sauce with Masago caviar, avocado, fresh cucumber, canned corn, ginger, sesame sauce, decorated with sesame seeds and nori flakes",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_714/65884779e6c0c-800x800.png",
+      "localImage": "images/112-poke-with-salmon.png"
+    },
+    {
+      "name": "Fortune",
+      "price": "449 ₺",
+      "description": "Lightly salted salmon, sesame, avocado, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_906/658852d4e76a5-800x800.jpg",
+      "localImage": "images/113-fortune.jpg"
+    },
+    {
+      "name": "Philadelphia shrimp",
+      "price": "345 ₺",
+      "description": "Lightly salted salmon, shrimp in batter and panko breadcrumbs, krill sauce, spicy sauce, avocado, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_907/6588530c610f1-800x800.jpg",
+      "localImage": "images/114-philadelphia-shrimp.jpg"
+    },
+    {
+      "name": "Poke with shrimps",
+      "price": "319 ₺",
+      "description": "Chinese cabbage, fresh cucumber, cherry tomatoes, chicken egg, cilantro, shrimp, sunflower oil, chilli sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1298/65885505a2af4-800x800.png",
+      "localImage": "images/115-poke-with-shrimps.png"
+    },
+    {
+      "name": "Poke with chicken",
+      "price": "289 ₺",
+      "description": "Terriyaki sauce chicken, rice with cheese sauce, cherry tomatoes, fresh cucumber, rocket salad, garnished with sesame seeds and nori flakes",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_713/6588474fded7b-800x800.png",
+      "localImage": "images/116-poke-with-chicken.png"
+    },
+    {
+      "name": "Rich",
+      "price": "665 ₺",
+      "description": "Eel, lightly salted salmon, cream cheese, avocado, Tobiko caviar, sesame seeds, Heinz sauce, nori, rice",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_760/658851c757fe3-800x800.jpg",
+      "localImage": "images/117-rich.jpg"
+    },
+    {
+      "name": "Poke with fried salmon",
+      "price": "289 ₺",
+      "description": "Chinese cabbage, radish, fresh cucumber, cherry tomatoes, salmon, sunflower oil, black pepper sauce, rice",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1299/6588553ad69ac-800x800.png",
+      "localImage": "images/118-poke-with-fried-salmon.png"
+    },
+    {
+      "name": "Vatican roll",
+      "price": "289 ₺",
+      "description": "Salmon, eel, creame chese, avocado, teryaki sauce, strawberry",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1453/63bebbf4c3d99-800x800.jpg",
+      "localImage": "images/119-vatican-roll.jpg"
+    },
+    {
+      "name": "Malibu",
+      "price": "379 ₺",
+      "description": "Colored tofu sheet, rice, avocado, tuna, s/s salmon",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1475/65e08db8d1f54-800x800.PNG",
+      "localImage": "images/120-malibu.png"
+    },
+    {
+      "name": "Action",
+      "price": "429 ₺",
+      "description": "Salted salmon, shrimp, fresh cucumber, cream cheese, sesame, tobiko caviar, mango-chili sauce, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_904/65885276587f5-800x800.png",
+      "localImage": "images/121-action.png"
+    },
+    {
+      "name": "Fusion",
+      "price": "699 ₺",
+      "description": "Salted salmon, green Tobiko caviar, raspberry Tobiko caviar, cucumber, cream cheese, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_755/65884880bc2dd-800x800.png",
+      "localImage": "images/122-fusion.png"
+    },
+    {
+      "name": "Fiji",
+      "price": "609 ₺",
+      "description": "Lightly salted salmon, Tobiko caviar, avocado, cream cheese, rice, nori, in tuna shavings",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_757/65884c14ac6da-800x800.png",
+      "localImage": "images/123-fiji.png"
+    },
+    {
+      "name": "Ideal",
+      "price": "435 ₺",
+      "description": "Lightly salted salmon, shrimp, sesame seeds, tobiko caviar, rice, nori",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_912/6588544ce48e5-800x800.jpg",
+      "localImage": "images/124-ideal.jpg"
+    },
+    {
+      "name": "Mersin",
+      "price": "469 ₺",
+      "description": "Colored sheet tofu, rice, salmon, tuna, cream cheese, masago caviar",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1478/65e08d4c952a3-800x800.PNG",
+      "localImage": "images/125-mersin.png"
+    },
+    {
+      "name": "Monako",
+      "price": "389 ₺",
+      "description": "Colored tofu sheet, shrimp, Masago caviar, cream cheese, cucumber, rice, Tofu sheet color - orange, yellow or pink",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1479/65e09508a6b0d-800x800.PNG",
+      "localImage": "images/126-monako.png"
+    },
+    {
+      "name": "Marmaris",
+      "price": "389 ₺",
+      "description": "Colored tofu sheet, rice, Chinese cabbage, masago caviar, eel, avocado, cream cheese",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1476/65e08d96e5254-800x800.PNG",
+      "localImage": "images/127-marmaris.png"
+    },
+    {
+      "name": "Maguro maki",
+      "price": "249 ₺",
+      "description": "Colored tofu sheet, rice, tuna",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1477/65e08d6f2715a-800x800.PNG",
+      "localImage": "images/128-maguro-maki.png"
+    },
+    {
+      "name": "Caesar chicken",
+      "price": "299 ₺",
+      "description": "Marinated chicken, romano salad, cherry tomatoes, chicken egg, caesar sauce, croutons",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_320/65871aed9b91c-800x800.png",
+      "localImage": "images/129-caesar-chicken.png"
+    },
+    {
+      "name": "Caesar salad with salmon",
+      "price": "299 ₺",
+      "description": "Lightly salted salmon, Romano lettuce, cherry tomatoes, chicken egg, Caesar sauce, croutons",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1552/6852aca5d1d9b-800x800.png",
+      "localImage": "images/130-caesar-salad-with-salmon.png"
+    },
+    {
+      "name": "Caesar salad with shrimps",
+      "price": "299 ₺",
+      "description": "Shrimps, garlic oil, Romano lettuce, cherry tomatoes, chicken egg, Caesar sauce, croutons",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1553/6852accfdb407-800x800.png",
+      "localImage": "images/131-caesar-salad-with-shrimps.png"
+    },
+    {
+      "name": "Tom-yum",
+      "price": "359 ₺",
+      "description": "Tom Yam broth, fresh champignons, shrimps, cherry tomatoes, mussels, squid, cilantro, rice",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_306/65871ac321552-800x800.png",
+      "localImage": "images/132-tom-yum.png"
+    },
+    {
+      "name": "Chicken ramen",
+      "price": "359 ₺",
+      "description": "Ramen broth, udon noodles, zucchini, spinach, green onion, poached egg, ginger, carrots, beans, chicken thigh",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_462/65884643187dc-800x800.png",
+      "localImage": "images/133-chicken-ramen.png"
+    },
+    {
+      "name": "Bougnon soup",
+      "price": "309 ₺",
+      "description": "Cream boulyon, salmon, shrimps, squid, rice, spices",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1422/6246e37e5f5e5-800x800.jpeg",
+      "localImage": "images/134-bougnon-soup.jpeg"
+    },
+    {
+      "name": "Ramen light",
+      "price": "339 ₺",
+      "description": "Chicken broth, chicken thigh, ramen noodles, carrots, spinach, poached egg, green onion",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1261/658854da6b075-800x800.png",
+      "localImage": "images/135-ramen-light.png"
+    },
+    {
+      "name": "Onigiri with shrimps, onigiri with salmon",
+      "price": "229 ₺",
+      "description": "Rice, nori, sesame, salmon, surimi, sweet chili sauce, cream cheese, white tobiko sauce, sesame sauce, shrimp",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1457/644a66339aa9a-800x800.jpg",
+      "localImage": "images/136-onigiri-with-shrimps-onigiri-with-salmon.jpg"
+    },
+    {
+      "name": "Onigiri with turkey, onigiri with salmon in teriyaki",
+      "price": "259 ₺",
+      "description": "Rice, nori, turkey fileto, cream cheese, cucumber, sweet chili sauce, teriyaki stewed trout, spicy sauce",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1458/644a6acb8a760-800x800.jpg",
+      "localImage": "images/137-onigiri-with-turkey-onigiri-with-salmon-in-teriyaki.jpg"
+    },
+    {
+      "name": "Yеdigün",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1545/67c072569a210-800x800.png",
+      "localImage": "images/138-y-digun.png"
+    },
+    {
+      "name": "Pеpsı max",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1546/67c072780c48b-800x800.png",
+      "localImage": "images/139-p-ps-max.png"
+    },
+    {
+      "name": "Pеpsı",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1547/67c0729b34b95-800x800.png",
+      "localImage": "images/140-p-ps.png"
+    },
+    {
+      "name": "Lımon frеsh",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1548/67c07370902f4-800x800.png",
+      "localImage": "images/141-l-mon-fr-sh.png"
+    },
+    {
+      "name": "Christmas mulled wine tea",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1536/6762f60f488b9-800x800.png",
+      "localImage": "images/142-christmas-mulled-wine-tea.png"
+    },
+    {
+      "name": "Shu puer tea",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1537/6762f6bf2743e-800x800.png",
+      "localImage": "images/143-shu-puer-tea.png"
+    },
+    {
+      "name": "Bai mu dan tea",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1538/6762f819c3bd7-800x800.png",
+      "localImage": "images/144-bai-mu-dan-tea.png"
+    },
+    {
+      "name": "Passion fruit oolong tea",
+      "price": "80 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_1539/6762f8acd6acc-800x800.png",
+      "localImage": "images/145-passion-fruit-oolong-tea.png"
+    },
+    {
+      "name": "Ginger",
+      "price": "10 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_81/65871190c8734-800x800.jpg",
+      "localImage": "images/146-ginger.jpg"
+    },
+    {
+      "name": "Wasabi",
+      "price": "10 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_83/624698e505d3a-800x800.jpg",
+      "localImage": "images/147-wasabi.jpg"
+    },
+    {
+      "name": "Chopsticks",
+      "price": "5 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_84/62469922143d1-800x800.jpg",
+      "localImage": "images/148-chopsticks.jpg"
+    },
+    {
+      "name": "Soy sauce",
+      "price": "10 ₺",
+      "image": "https://storage.yandexcloud.net/sushi-market/products/product_82/62469879a9141-800x800.jpg",
+      "localImage": "images/149-soy-sauce.jpg"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "sushisea",
+  "version": "1.0.0",
+  "description": "Sushi Market ürün çekme",
+  "type": "module",
+  "scripts": {
+    "fetch-products": "node fetch-products.js",
+    "download-images": "node download-images.js"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}

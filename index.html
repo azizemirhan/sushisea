@@ -1,0 +1,5903 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#3fa9f5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sushi Market - Paket Servisi & Gel-Al</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #3fa9f5;
+  --primary-hover: #3fa9f5;
+  --primary-light: #ffe8e8;
+  --secondary: #3fa9f5;
+  --secondary-hover: #2d9ae6;
+  --secondary-light: #e8f5ff;
+  --coral: #3fa9f5;
+  --coral-hover: #3fa9f5;
+  --coral-light: #ffe8e8;
+  --dark: #1a1a1a;
+  --text: #333;
+  --text-light: #777;
+  --text-muted: #999;
+  --border: #eee;
+  --bg: #fff;
+  --bg-gray: #f5f5f5;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; border: none; }
+img { max-width: 100%; display: block; }
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  margin-right: 340px;
+}
+.top-bar-left {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.top-bar-left a:hover { color: var(--primary); }
+.top-bar-right {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 40px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  margin-right: 340px;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--dark);
+}
+.logo .dot { color: var(--primary); }
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-icon svg { width: 16px; height: 16px; fill: #fff; }
+.logo-img {
+  height: 92px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.delivery-toggle {
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+  margin-left: 12px;
+}
+.delivery-toggle button {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+.delivery-toggle button.active {
+  background: var(--primary);
+  color: #fff;
+}
+.delivery-toggle button:not(.active):hover {
+  background: var(--primary-light);
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 600;
+}
+.location svg { width: 14px; height: 14px; fill: var(--secondary); }
+
+.address-select {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
+  max-width: 240px;
+  min-width: 0;
+}
+.address-select svg { width: 12px; height: 12px; }
+.address-select span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.address-select.is-selected {
+  color: var(--secondary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.header-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.header-icon:hover { color: var(--primary); }
+.header-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  align-items: flex-start;
+  overflow-x: clip;
+}
+.content {
+  flex: 1;
+  padding: 24px 32px;
+  margin-right: 340px;
+  min-height: 100vh;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+/* ===== SHOWCASE SLIDERS ===== */
+.section-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--dark);
+  margin-bottom: 16px;
+}
+
+.showcase-slider {
+  margin-bottom: 40px;
+}
+
+.showcase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.showcase-header .section-title {
+  margin-bottom: 0;
+}
+
+.slider-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.slider-progress {
+  position: relative;
+  width: 132px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(63, 169, 245, 0.12), rgba(63, 169, 245, 0.04));
+  overflow: hidden;
+}
+
+.slider-progress span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 32%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #3fa9f5, #7bc4fb);
+  transform: translateX(0);
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.slider-counter {
+  min-width: 44px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.slider-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(63, 169, 245, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(63, 169, 245, 0.12);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, color 0.22s ease, opacity 0.22s ease;
+}
+
+.slider-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: var(--secondary);
+  color: #fff;
+  box-shadow: 0 18px 36px rgba(63, 169, 245, 0.2);
+}
+
+.slider-button:disabled {
+  opacity: 0.38;
+  cursor: default;
+  box-shadow: none;
+}
+
+.slider-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.slider-viewport {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+  padding: 6px 2px 14px;
+}
+
+.slider-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.slider-track {
+  display: grid;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.promos,
+.popular-scroll {
+  margin-bottom: 0;
+}
+
+.promos.slider-track {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 34%);
+}
+
+.popular-scroll.slider-track {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 28%);
+}
+
+.promo-card,
+.popular-item {
+  scroll-snap-align: start;
+}
+
+.showcase-slider.is-static .slider-button {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.promo-card {
+  min-height: 140px;
+  border-radius: var(--radius);
+  padding: 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 20px 40px rgba(28, 71, 114, 0.14);
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+.promo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 50px rgba(28, 71, 114, 0.18);
+}
+.promo-card.red {
+  background: linear-gradient(135deg, var(--primary), #e64444);
+}
+.promo-card.dark {
+  background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+}
+.promo-card.green {
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  position: relative;
+}
+.promo-card.green::after {
+  content: '%';
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 48px;
+  font-weight: 900;
+  opacity: 0.2;
+  line-height: 1;
+}
+.promo-card.light {
+  background: #f9f9f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.promo-title {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.promo-sub {
+  font-size: 12px;
+  opacity: 0.85;
+}
+.promo-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.promo-big {
+  font-size: 28px;
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+/* ===== POPULAR ITEMS ===== */
+.popular-section {
+  margin-bottom: 32px;
+}
+.popular-scroll {
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.popular-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248, 251, 255, 0.96));
+  border: 1px solid rgba(63, 169, 245, 0.08);
+  box-shadow: 0 18px 36px rgba(63, 169, 245, 0.08);
+}
+.popular-item:hover {
+  background: var(--primary-light);
+  box-shadow: 0 22px 42px rgba(63, 169, 245, 0.12);
+}
+.popular-item:hover { transform: translateY(-2px); }
+.popular-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-gray);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+}
+.popular-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.popular-info {
+  display: flex;
+  flex-direction: column;
+}
+.popular-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.popular-price {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* ===== CATEGORY TABS ===== */
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding: 8px 4px;
+  scrollbar-width: none;
+  position: sticky;
+  top: 65px;
+  background: #fff;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+.category-tabs::before,
+.category-tabs::after {
+  content: '';
+  flex: 0 0 4px;
+}
+.category-tabs::-webkit-scrollbar { display: none; }
+.cat-tab {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+.category-tabs::-webkit-scrollbar { display: none; }
+
+.cat-tab {
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--bg-gray);
+  color: var(--text);
+  transition: all 0.2s;
+  border: none;
+}
+.cat-tab:hover { background: var(--secondary-light); color: var(--secondary); }
+.cat-tab.active {
+  background: var(--secondary);
+  color: #fff;
+}
+
+/* ===== PRODUCT GRID ===== */
+.category-section {
+  margin-bottom: 48px;
+}
+.category-section:last-of-type {
+  margin-bottom: 32px;
+}
+.category-section .section-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.2s;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.product-card:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-2px);
+}
+
+.product-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--bg-gray);
+  overflow: hidden;
+  position: relative;
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.product-card:hover .product-img img { transform: scale(1.05); }
+
+.product-img .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.product-body {
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.product-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.product-weight {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.product-desc {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: auto;
+  padding-top: 8px;
+  min-height: 2.8em;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 14px;
+  margin-top: auto;
+}
+.product-price {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--dark);
+}
+.product-price span { font-size: 14px; }
+.product-price { white-space: nowrap; }
+
+.btn-add {
+  padding: 8px 16px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: center;
+}
+.btn-add:hover { background: var(--primary-hover); transform: scale(1.05); }
+.btn-add:active { transform: scale(0.97); }
+
+.btn-later {
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--secondary);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s;
+  white-space: nowrap;
+  border: 2px solid var(--secondary);
+  cursor: pointer;
+}
+.btn-later:hover { background: var(--secondary-light); }
+
+.product-card[data-product-id],
+.popular-item[data-product-name] {
+  cursor: pointer;
+}
+
+.product-card[data-product-id]:focus-visible,
+.popular-item[data-product-name]:focus-visible {
+  outline: 3px solid rgba(63, 169, 245, 0.28);
+  outline-offset: 4px;
+}
+
+/* ===== PRODUCT MODAL ===== */
+.product-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(12, 26, 44, 0.56);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+  z-index: 450;
+}
+
+.product-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-modal {
+  position: relative;
+  width: min(1120px, calc(100vw - 56px));
+  max-height: calc(100vh - 56px);
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(420px, 1.04fr);
+  overflow: hidden;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ffffff 0%, #f6fbff 52%, #edf7ff 100%);
+  box-shadow: 0 36px 90px rgba(10, 42, 74, 0.34);
+  isolation: isolate;
+}
+
+.product-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--secondary);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 30px rgba(15, 63, 111, 0.16);
+  z-index: 2;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.product-modal-close:hover {
+  transform: rotate(90deg);
+  background: #fff;
+}
+
+.product-modal-close svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+}
+
+.product-modal-media {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 54px 42px;
+  background:
+    radial-gradient(circle at 28% 26%, rgba(63, 169, 245, 0.24), transparent 32%),
+    radial-gradient(circle at 74% 72%, rgba(123, 196, 251, 0.28), transparent 44%),
+    linear-gradient(180deg, #fdfefe 0%, #eef8ff 100%);
+}
+
+.product-modal-media::before {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(191, 228, 255, 0.9) 0%, rgba(227, 244, 255, 0.6) 48%, rgba(255, 255, 255, 0) 72%);
+  transform: translate(-18%, -4%);
+}
+
+.product-modal-visual {
+  position: relative;
+  width: min(100%, 400px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.product-modal-visual img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 26px 40px rgba(29, 72, 118, 0.18));
+}
+
+.product-modal-visual .emoji-placeholder {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 0 0 1px rgba(63, 169, 245, 0.08);
+}
+
+.product-modal-content {
+  display: flex;
+  flex-direction: column;
+  padding: 56px 46px 40px;
+}
+
+.product-modal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 7px 12px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(63, 169, 245, 0.1);
+  color: var(--secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.product-modal-title {
+  font-size: clamp(34px, 3.2vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #4f4c59;
+  margin-bottom: 16px;
+  max-width: 10ch;
+}
+
+.product-modal-desc {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #7b8090;
+  margin-bottom: 16px;
+  max-width: 28ch;
+}
+
+.product-modal-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #7a7f8d;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.product-modal-info {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid rgba(63, 169, 245, 0.82);
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.product-modal-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.product-modal-section-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--dark);
+}
+
+.product-modal-note {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.product-modal-options {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(138px, 1fr);
+  gap: 14px;
+  overflow-x: auto;
+  padding: 2px 4px 12px;
+  margin-right: -4px;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.product-modal-options::-webkit-scrollbar {
+  display: none;
+}
+
+.product-modal-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 18px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(63, 169, 245, 0.12);
+  box-shadow: 0 16px 36px rgba(39, 112, 181, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  scroll-snap-align: start;
+}
+
+.product-modal-option:hover {
+  transform: translateY(-2px);
+  border-color: rgba(63, 169, 245, 0.28);
+  box-shadow: 0 20px 40px rgba(39, 112, 181, 0.14);
+}
+
+.product-modal-option.selected {
+  border-color: rgba(63, 169, 245, 0.92);
+  box-shadow: 0 22px 44px rgba(39, 112, 181, 0.18);
+}
+
+.product-modal-option-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(63, 169, 245, 0.1);
+  color: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.product-modal-option.selected .product-modal-option-check {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+.product-modal-option-thumb {
+  width: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #eef8ff 100%);
+  overflow: hidden;
+}
+
+.product-modal-option-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-modal-option-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #55515f;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.product-modal-option-price {
+  min-width: 90px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1.8px solid rgba(63, 169, 245, 0.58);
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.product-modal-option.selected .product-modal-option-price {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.product-modal-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgba(63, 169, 245, 0.12);
+}
+
+.product-modal-total {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-modal-total-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.product-modal-total strong {
+  font-size: clamp(34px, 3vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #4f4c59;
+}
+
+.product-modal-add {
+  min-width: 228px;
+  padding: 18px 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #67c6ff 0%, #3fa9f5 58%, #2a8add 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 22px 44px rgba(63, 169, 245, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-modal-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 26px 48px rgba(63, 169, 245, 0.34);
+}
+
+@media (max-width: 980px) {
+  .product-modal {
+    width: min(760px, calc(100vw - 32px));
+    grid-template-columns: 1fr;
+  }
+
+  .product-modal-media {
+    min-height: 320px;
+    padding: 38px 30px 18px;
+  }
+
+  .product-modal-media::before {
+    width: 440px;
+    height: 440px;
+    transform: translate(-8%, -10%);
+  }
+
+  .product-modal-content {
+    padding: 20px 28px 28px;
+  }
+
+  .product-modal-title,
+  .product-modal-desc {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-modal-overlay {
+    align-items: flex-end;
+    padding: max(8px, env(safe-area-inset-top)) 8px 0;
+  }
+
+  .product-modal {
+    width: min(100%, 430px);
+    height: min(calc(100dvh - max(8px, env(safe-area-inset-top))), 860px);
+    max-height: none;
+    grid-template-rows: auto minmax(0, 1fr);
+    border-radius: 30px 30px 0 0;
+  }
+
+  .product-modal-close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .product-modal-media {
+    min-height: 214px;
+    padding: 42px 22px 14px;
+  }
+
+  .product-modal-media::before {
+    width: 320px;
+    height: 320px;
+    transform: translate(-12%, -10%);
+  }
+
+  .product-modal-visual {
+    width: min(100%, 238px);
+  }
+
+  .product-modal-content {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 18px 0;
+  }
+
+  .product-modal-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .product-modal-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .product-modal-meta {
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .product-modal-section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .product-modal-options {
+    grid-auto-columns: minmax(112px, calc((100% - 24px) / 3));
+    gap: 12px;
+    padding: 2px 2px 12px;
+    margin-right: -2px;
+  }
+
+  .product-modal-option {
+    padding: 12px 12px 14px;
+    gap: 10px;
+    border-radius: 20px;
+  }
+
+  .product-modal-option-thumb {
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+  }
+
+  .product-modal-option-name {
+    font-size: 13px;
+  }
+
+  .product-modal-option-price {
+    min-width: 0;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .product-modal-footer {
+    position: sticky;
+    bottom: 0;
+    margin: 18px -18px 0;
+    padding: 16px 18px calc(16px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+
+  .product-modal-total strong {
+    font-size: 28px;
+  }
+
+  .product-modal-add {
+    min-width: 148px;
+    padding: 15px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 390px) {
+  .product-modal {
+    width: 100%;
+  }
+
+  .product-modal-options {
+    grid-auto-columns: minmax(108px, calc((100% - 12px) / 2.25));
+  }
+
+  .product-modal-footer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .product-modal-add {
+    width: 100%;
+  }
+}
+
+/* ===== SERVICE MAP MODAL ===== */
+.service-map-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  background: rgba(9, 26, 44, 0.58);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+  z-index: 520;
+}
+
+.service-map-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.service-map-modal {
+  position: relative;
+  width: min(1280px, calc(100vw - 52px));
+  max-height: calc(100vh - 52px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(320px, 0.95fr);
+  overflow: hidden;
+  border-radius: 34px;
+  background: linear-gradient(135deg, #ffffff 0%, #f6fbff 52%, #edf7ff 100%);
+  box-shadow: 0 38px 90px rgba(7, 42, 79, 0.34);
+}
+
+.service-map-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14px 30px rgba(12, 53, 95, 0.16);
+  z-index: 4;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.service-map-close:hover {
+  transform: rotate(90deg);
+  background: #fff;
+}
+
+.service-map-close svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.3;
+}
+
+.service-map-stage {
+  position: relative;
+  min-height: 640px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(122, 198, 255, 0.32), transparent 38%),
+    radial-gradient(circle at bottom right, rgba(63, 169, 245, 0.22), transparent 32%),
+    linear-gradient(180deg, #eff7ff 0%, #d9edff 100%);
+}
+
+.service-map-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 596px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f5fbff, #dff0ff);
+  box-shadow: inset 0 0 0 1px rgba(63, 169, 245, 0.12);
+}
+
+#serviceMap {
+  width: 100%;
+  height: 100%;
+  min-height: 596px;
+}
+
+.service-map-toolbar {
+  position: absolute;
+  top: 38px;
+  left: 38px;
+  right: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.service-map-title-card {
+  pointer-events: auto;
+  max-width: 410px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(63, 169, 245, 0.14);
+  box-shadow: 0 18px 40px rgba(26, 80, 132, 0.12);
+}
+
+.service-map-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(63, 169, 245, 0.1);
+  color: var(--secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-map-heading {
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 900;
+  color: #26425d;
+  letter-spacing: -0.03em;
+}
+
+.service-map-copy {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #65809b;
+}
+
+.service-map-toggle-shell {
+  pointer-events: auto;
+  padding: 10px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(63, 169, 245, 0.14);
+  box-shadow: 0 16px 34px rgba(22, 74, 118, 0.12);
+}
+
+.service-map-toggle-shell .delivery-toggle {
+  margin-left: 0;
+}
+
+.service-map-toggle-shell .delivery-toggle button {
+  min-width: 150px;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.service-map-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 32px 28px 28px;
+  background:
+    radial-gradient(circle at top, rgba(141, 207, 255, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(250, 253, 255, 0.98) 0%, rgba(236, 246, 255, 0.98) 100%);
+}
+
+.service-map-sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25), transparent 30%);
+  pointer-events: none;
+}
+
+.service-map-sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.service-map-sidebar-head {
+  display: grid;
+  gap: 6px;
+}
+
+.service-map-sidebar-head strong {
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #29435f;
+}
+
+.service-map-sidebar-head p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6c86a0;
+}
+
+.service-map-status {
+  padding: 14px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #4b6580;
+  background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(244, 250, 255, 0.9));
+  border: 1px solid rgba(63, 169, 245, 0.12);
+}
+
+.service-map-status.is-success {
+  color: #225c40;
+  background: linear-gradient(180deg, rgba(232, 255, 244, 0.96), rgba(221, 246, 234, 0.98));
+  border-color: rgba(59, 176, 118, 0.22);
+}
+
+.service-map-status.is-error {
+  color: #9a3d46;
+  background: linear-gradient(180deg, rgba(255, 240, 242, 0.96), rgba(255, 232, 236, 0.98));
+  border-color: rgba(245, 115, 132, 0.24);
+}
+
+.service-map-zone-card {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(63, 169, 245, 0.12);
+  box-shadow: 0 18px 36px rgba(41, 93, 144, 0.08);
+}
+
+.service-map-zone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(63, 169, 245, 0.1);
+  color: var(--secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-map-zone-name {
+  margin-top: 14px;
+  font-size: 28px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #25405b;
+}
+
+.service-map-zone-text {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #627b95;
+}
+
+.service-map-zone-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.service-map-zone-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(63, 169, 245, 0.08);
+  color: #326085;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.service-map-legend {
+  display: grid;
+  gap: 10px;
+}
+
+.service-map-legend-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #58718b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-map-legend-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.service-map-legend-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 20px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(63, 169, 245, 0.12);
+  box-shadow: 0 12px 30px rgba(41, 93, 144, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.service-map-legend-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(63, 169, 245, 0.28);
+  box-shadow: 0 16px 32px rgba(41, 93, 144, 0.08);
+}
+
+.service-map-legend-btn.active {
+  background: #fff;
+  border-color: rgba(63, 169, 245, 0.34);
+  box-shadow: 0 18px 34px rgba(41, 93, 144, 0.1);
+}
+
+.service-map-legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.68);
+}
+
+.service-map-legend-body strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.3;
+  color: #24405c;
+}
+
+.service-map-legend-body span {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #65809b;
+}
+
+.service-map-legend-body small {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(63, 169, 245, 0.08);
+  color: #2e6289;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.service-map-field {
+  display: grid;
+  gap: 8px;
+}
+
+.service-map-field-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5f7791;
+}
+
+.service-map-input-wrap {
+  position: relative;
+}
+
+.service-map-input-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: #77a6ce;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  pointer-events: none;
+}
+
+.service-map-input {
+  width: 100%;
+  min-height: 58px;
+  padding: 16px 18px 16px 48px;
+  border-radius: 18px;
+  border: 1px solid rgba(63, 169, 245, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+  color: #25405a;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 700;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.service-map-input:focus {
+  outline: none;
+  border-color: rgba(63, 169, 245, 0.56);
+  box-shadow: 0 0 0 4px rgba(63, 169, 245, 0.12);
+  background: #fff;
+}
+
+.service-map-confirm {
+  min-height: 56px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3fa9f5, #2f93df);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  box-shadow: 0 20px 36px rgba(47, 147, 223, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.service-map-confirm:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 24px 40px rgba(47, 147, 223, 0.34);
+}
+
+.service-map-confirm:disabled {
+  cursor: default;
+  opacity: 0.5;
+  background: linear-gradient(135deg, #c6d8e6, #aec8dd);
+  box-shadow: none;
+}
+
+.service-map-footnote {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6d859f;
+}
+
+.service-map-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-map-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.84);
+  border: 1px solid rgba(63, 169, 245, 0.1);
+  color: #355d82;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.service-map-chip i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+}
+
+.service-map-marker {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: linear-gradient(135deg, #ff6d7f, #f34d67);
+  border: 4px solid #fff;
+  box-shadow: 0 16px 28px rgba(243, 77, 103, 0.28);
+}
+
+.service-map-marker::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.service-zone-label {
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(63, 169, 245, 0.14);
+  color: #274761;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: 0 14px 28px rgba(36, 86, 132, 0.12);
+  white-space: nowrap;
+}
+
+.service-zone-label::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--zone-color, var(--secondary));
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.82);
+}
+
+.service-map-popup {
+  min-width: 180px;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #ffffff, #f5fbff);
+}
+
+.service-map-popup strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.3;
+  color: #21415d;
+}
+
+.service-map-popup span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #607992;
+}
+
+.service-map-popup small {
+  display: block;
+  margin-top: 8px;
+  color: var(--secondary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.maplibregl-ctrl-group {
+  border: none !important;
+  box-shadow: 0 16px 28px rgba(24, 72, 117, 0.14) !important;
+}
+
+.maplibregl-ctrl-group button {
+  width: 38px !important;
+  height: 38px !important;
+}
+
+.maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 20px 36px rgba(22, 68, 112, 0.18) !important;
+}
+
+.maplibregl-popup-close-button {
+  padding: 10px 12px 0 0 !important;
+  color: #7c97b2;
+}
+
+@media (max-width: 1180px) {
+  .service-map-modal {
+    width: min(980px, calc(100vw - 28px));
+    grid-template-columns: 1fr;
+  }
+
+  .service-map-stage {
+    min-height: 460px;
+  }
+
+  .service-map-canvas,
+  #serviceMap {
+    min-height: 420px;
+  }
+
+  .service-map-sidebar {
+    max-height: min(44vh, 430px);
+    overflow-y: auto;
+  }
+
+  .service-map-legend-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .service-map-overlay {
+    align-items: flex-end;
+    padding: max(8px, env(safe-area-inset-top)) 8px 0;
+  }
+
+  .service-map-modal {
+    width: min(100%, 430px);
+    height: min(calc(100dvh - max(8px, env(safe-area-inset-top))), 920px);
+    max-height: none;
+    border-radius: 32px 32px 0 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(290px, 44dvh) minmax(0, 1fr);
+  }
+
+  .service-map-stage {
+    min-height: 0;
+    padding: 12px 12px 0;
+  }
+
+  .service-map-canvas,
+  #serviceMap {
+    min-height: 290px;
+    border-radius: 26px 26px 18px 18px;
+  }
+
+  .service-map-toolbar {
+    top: 24px;
+    left: 24px;
+    right: 76px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .service-map-title-card {
+    max-width: none;
+    padding: 14px 16px;
+  }
+
+  .service-map-heading {
+    font-size: 23px;
+  }
+
+  .service-map-copy {
+    font-size: 13px;
+  }
+
+  .service-map-toggle-shell {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .service-map-toggle-shell .delivery-toggle {
+    width: 100%;
+  }
+
+  .service-map-toggle-shell .delivery-toggle button {
+    min-width: 0;
+    flex: 1;
+    padding: 10px 14px;
+  }
+
+  .service-map-close {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .service-map-sidebar {
+    padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+    gap: 14px;
+    overflow-y: auto;
+  }
+
+  .service-map-sidebar-head strong {
+    font-size: 26px;
+  }
+
+  .service-map-zone-name {
+    font-size: 23px;
+  }
+
+  .service-map-legend-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-map-confirm {
+    position: sticky;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .service-map-title-card {
+    padding: 12px 14px;
+  }
+
+  .service-map-kicker,
+  .service-map-zone-pill {
+    letter-spacing: 0.05em;
+  }
+
+  .service-zone-label {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+}
+
+/* ===== COMBO / DISCOUNT CARDS ===== */
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.combo-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.combo-card:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-2px);
+}
+.combo-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--bg-gray);
+  position: relative;
+  overflow: hidden;
+}
+.combo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.discount-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+}
+.combo-pieces {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.combo-pieces svg { width: 12px; height: 12px; fill: #fff; }
+.combo-weight {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.combo-body {
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.combo-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.combo-desc {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.combo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 14px;
+  margin-top: auto;
+}
+
+/* ===== SIDEBAR CART ===== */
+.sidebar {
+  width: 340px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  background: #fff;
+  /* Dikey arka plan: 340×1020 veya 680×2040 (1:3 oran) önerilir */
+  background-image: url('images/sidebar-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+}
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.sidebar > * { position: relative; z-index: 1; }
+.sidebar-header {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+.cart-empty-icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 16px;
+  opacity: 0.15;
+}
+.cart-empty-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.cart-empty-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 20px;
+}
+.receipt-title {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.receipt-toggle {
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+  margin-bottom: 12px;
+}
+.receipt-toggle button {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+.receipt-toggle button.active {
+  background: var(--primary);
+  color: #fff;
+}
+.receipt-toggle button:not(.active):hover {
+  background: var(--primary-light);
+}
+.promo-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.promo-input input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.2s;
+}
+.promo-input input:focus { border-color: var(--secondary); }
+.promo-input button {
+  padding: 10px 16px;
+  background: var(--secondary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.promo-input button:hover {
+  background: var(--secondary-hover);
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--text-light);
+}
+.receipt-row.total {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--dark);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-order {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.btn-order:hover { background: var(--primary-hover); }
+
+/* ===== CART ITEMS ===== */
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.cart-item-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: var(--bg-gray);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-size: 13px; font-weight: 700; }
+.cart-item-weight { font-size: 11px; color: var(--text-muted); }
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cart-qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  transition: background 0.2s;
+}
+.cart-qty-btn:hover { background: var(--secondary-light); color: var(--secondary); }
+.cart-qty { font-size: 14px; font-weight: 700; }
+.cart-item-price { font-size: 14px; font-weight: 800; white-space: nowrap; margin-left: 8px; }
+
+/* ===== SUSHI EMOJI PLACEHOLDERS ===== */
+.emoji-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  background: var(--bg-gray);
+  line-height: 1;
+}
+.emoji-placeholder.small { font-size: 32px; line-height: 1; }
+.emoji-placeholder.tiny { font-size: 24px; line-height: 1; }
+
+/* ===== FOOTER ===== */
+.footer-ocean {
+  margin-top: 72px;
+  position: relative;
+  width: calc(100% + 64px);
+  margin-left: -32px;
+  margin-right: -32px;
+  min-height: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 18%),
+    linear-gradient(135deg, #43adf7 0%, #256fb3 46%, #0e3a63 100%);
+  overflow: hidden;
+  border-radius: 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.footer-ocean::before,
+.footer-ocean::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.footer-ocean::before {
+  top: -140px;
+  left: -6%;
+  width: 38%;
+  height: 340px;
+  background: radial-gradient(circle, rgba(176, 227, 255, 0.3) 0%, rgba(176, 227, 255, 0) 72%);
+}
+
+.footer-ocean::after {
+  right: -8%;
+  bottom: -150px;
+  width: 32%;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+@media (min-width: 1441px) {
+  .footer-ocean {
+    width: calc(100% + 64px + (100vw - 1440px));
+    margin-left: calc(-32px - ((100vw - 1440px) / 2));
+    margin-right: calc(-32px - ((100vw - 1440px) / 2));
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer-ocean {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-ocean {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-ocean {
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    margin-right: -12px;
+    border-radius: 0;
+  }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+  padding: 58px 60px 30px;
+  color: rgba(255,255,255,0.95);
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  gap: 26px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.18fr) minmax(420px, 0.82fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.footer-brand-card,
+.footer-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+  box-shadow: 0 28px 60px rgba(5, 27, 49, 0.18);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.footer-brand-card {
+  padding: 34px;
+}
+
+.footer-brand-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -42% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+}
+
+.footer-kicker {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-brand {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+.footer-logo-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 0;
+  min-height: 92px;
+  padding: 12px 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 34px rgba(7, 39, 68, 0.18);
+}
+
+.footer-logo-shell .logo-img {
+  height: 70px;
+  width: auto;
+  filter: none !important;
+}
+
+.footer-brand-title {
+  display: block;
+  max-width: 14ch;
+  font-size: clamp(30px, 2.8vw, 42px);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  color: #fff;
+}
+
+.footer-brand-text {
+  display: block;
+  margin-top: 10px;
+  max-width: 42ch;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.footer-chip-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.footer-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.footer-contact-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--secondary);
+  font-size: 15px;
+  font-weight: 900;
+  box-shadow: 0 16px 30px rgba(7, 39, 68, 0.16);
+}
+
+.footer-note {
+  display: block;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.footer-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+  align-content: start;
+}
+
+.footer-panel {
+  padding: 28px 24px;
+  height: auto;
+  align-self: start;
+}
+
+.footer-panel-title {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.footer-list a {
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-list a:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.footer-panel.is-highlight {
+  grid-column: 1 / -1;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(7, 42, 74, 0.34), rgba(8, 32, 59, 0.22));
+}
+
+.footer-highlight {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "delivery pickup"
+    "hours hours";
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.footer-highlight-item {
+  height: 100%;
+  padding: 18px 18px 20px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.footer-highlight-item--delivery { grid-area: delivery; }
+.footer-highlight-item--pickup { grid-area: pickup; }
+.footer-highlight-item--hours { grid-area: hours; }
+
+.footer-highlight-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.footer-highlight-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-highlight-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-highlight-label {
+  display: block;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-highlight-value {
+  display: block;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.footer-highlight-item--pickup .footer-highlight-value {
+  font-size: 23px;
+  line-height: 1.18;
+}
+
+.footer-highlight-item--hours .footer-highlight-value {
+  font-size: 28px;
+}
+
+.footer-highlight-copy {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.footer-bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-bottom-links a {
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.footer-bottom-links a:hover {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 1024px) {
+  .footer-content { padding: 44px 40px 28px; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-panel.is-highlight { grid-column: 1 / -1; }
+  .footer-highlight {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "delivery"
+      "pickup"
+      "hours";
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-ocean { border-radius: 0; }
+  .footer-content { padding: 38px 28px 24px; gap: 22px; }
+  .footer-brand-card,
+  .footer-panel { border-radius: 28px; }
+  .footer-brand-card { padding: 24px; }
+  .footer-brand { grid-template-columns: 1fr; gap: 14px; }
+  .footer-logo-shell { min-width: 0; width: fit-content; }
+  .footer-logo-shell .logo-img { height: 60px; }
+  .footer-brand-title { font-size: 28px; }
+  .footer-meta-grid { grid-template-columns: 1fr; }
+  .footer-panel.is-highlight { grid-column: auto; }
+  .footer-bottom { font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .footer-content { padding: 30px 18px 18px; gap: 18px; }
+  .footer-brand-card,
+  .footer-panel { border-radius: 24px; }
+  .footer-brand-card,
+  .footer-panel { padding: 20px; }
+  .footer-kicker { margin-bottom: 14px; }
+  .footer-brand-title { font-size: 24px; }
+  .footer-brand-text { font-size: 14px; }
+  .footer-chip-row { gap: 8px; }
+  .footer-chip { width: 100%; justify-content: center; text-align: center; }
+  .footer-contact-row { align-items: stretch; }
+  .footer-phone { width: 100%; justify-content: center; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; font-size: 12px; gap: 10px; }
+  .footer-bottom-links { gap: 14px; }
+}
+
+/* ===== SCROLL TO TOP ===== */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 364px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(63,169,245,0.4);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  transform: translateY(10px);
+  z-index: 200;
+  border: none;
+  cursor: pointer;
+}
+.scroll-top:hover { background: var(--secondary-hover); }
+.scroll-top.visible { opacity: 1; transform: translateY(0); }
+.scroll-top svg { width: 20px; height: 20px; fill: #fff; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.product-card, .combo-card {
+  animation: fadeInUp 0.4s ease both;
+}
+.product-grid .product-card:nth-child(1) { animation-delay: 0.02s; }
+.product-grid .product-card:nth-child(2) { animation-delay: 0.06s; }
+.product-grid .product-card:nth-child(3) { animation-delay: 0.10s; }
+.product-grid .product-card:nth-child(4) { animation-delay: 0.14s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1440px) {
+  .sidebar { right: 0; }
+}
+@media (max-width: 1200px) {
+  .product-grid, .combo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .content { margin-right: 0; padding-bottom: 100px; }
+  .header { margin-right: 0; }
+  .top-bar { margin-right: 0; display: none; }
+  .scroll-top { right: 20px; bottom: 90px; display: flex; }
+  .mobile-bottom-bar { display: flex; }
+  .header-right .header-icon:nth-child(2),
+  .header-right .header-icon:nth-child(3) { display: none; }
+  body { padding-bottom: env(safe-area-inset-bottom); }
+}
+@media (max-width: 768px) {
+  .header { 
+    padding: 12px 16px; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    left: 0;
+    margin-right: 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .header-left { gap: 12px; }
+  .header-right { gap: 12px; }
+  .delivery-toggle button { padding: 8px 16px; font-size: 13px; }
+  .address-select { display: none; }
+  .lang-switch { display: none; }
+  .content { padding: 90px 16px 100px; margin-right: 0; }
+  .product-grid, .combo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .section-title { font-size: 20px; margin-bottom: 14px; }
+  .category-tabs { top: 72px; padding: 8px 0; }
+  .showcase-header { align-items: flex-end; margin-bottom: 14px; }
+  .slider-toolbar { gap: 10px; }
+  .slider-progress { width: 92px; }
+  .slider-button { width: 40px; height: 40px; }
+  .promos.slider-track { grid-auto-columns: minmax(176px, calc(50% - 8px)); gap: 12px; }
+  .popular-scroll.slider-track { grid-auto-columns: minmax(176px, calc(50% - 8px)); gap: 12px; }
+  .slider-viewport { padding: 4px 2px 12px; }
+  .promo-card { padding: 16px; min-height: 120px; }
+  .promo-title { font-size: 14px; }
+  .promo-big { font-size: 20px; }
+  .logo-img { height: 72px; }
+  .product-card { border-radius: 12px; }
+  .product-img { aspect-ratio: 1; }
+  .product-name { font-size: 14px; }
+  .btn-add, .btn-later { padding: 10px 16px; font-size: 13px; min-height: 40px; }
+}
+@media (max-width: 480px) {
+  .header { padding: 12px 12px; }
+  .header-left { gap: 10px; }
+  .delivery-toggle { display: none; }
+  .location { 
+    font-size: 12px; 
+    background: var(--secondary-light); 
+    padding: 4px 10px; 
+    border-radius: 16px;
+  }
+  .location svg { width: 12px; height: 12px; }
+  .product-grid, .combo-grid { grid-template-columns: 1fr; }
+  .content { padding: 80px 12px 100px; }
+  .product-card { 
+    display: flex; 
+    flex-direction: row; 
+    align-items: stretch; 
+    height: auto;
+    border-radius: 12px;
+  }
+  .product-card .product-img { 
+    width: 110px; 
+    height: 110px; 
+    aspect-ratio: 1; 
+    flex-shrink: 0;
+    border-radius: 12px 0 0 12px;
+  }
+  .product-card .product-body { padding: 12px; flex: 1; display: flex; flex-direction: column; }
+  .product-card .product-footer { 
+    flex-direction: row; 
+    align-items: center; 
+    padding: 0 12px 12px; 
+    gap: 8px; 
+    margin-top: auto;
+  }
+  .emoji-placeholder { font-size: 42px; }
+  .emoji-placeholder.small { font-size: 28px; }
+  .section-title { font-size: 18px; margin-bottom: 12px; font-weight: 800; }
+  .showcase-header { gap: 12px; }
+  .showcase-header .section-title { margin-bottom: 0; }
+  .slider-toolbar { width: auto; gap: 8px; }
+  .slider-progress { width: 72px; }
+  .slider-button { width: 36px; height: 36px; }
+  .promos.slider-track { grid-auto-columns: calc(50% - 6px); gap: 10px; }
+  .popular-scroll.slider-track { grid-auto-columns: calc(50% - 6px); gap: 10px; }
+  .promo-card { padding: 14px; min-height: 110px; }
+  .popular-img { width: 48px; height: 48px; }
+  .popular-name { font-size: 13px; }
+  .popular-price { font-size: 12px; }
+  .btn-add { min-width: 60px; padding: 8px 12px; }
+  .product-desc { font-size: 11px; -webkit-line-clamp: 1; }
+  .mobile-bottom-bar { height: 60px; }
+  .logo-img { height: 64px; }
+  .category-tabs { top: 68px; }
+}
+
+/* ===== MOBILE BOTTOM BAR ===== */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  z-index: 300;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+}
+.mobile-bottom-bar .bottom-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+  background: none;
+  flex: 1;
+  max-width: 80px;
+  min-height: 48px;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-bottom-bar .bottom-item:active {
+  background: var(--bg-gray);
+  transform: scale(0.95);
+}
+.mobile-bottom-bar .bottom-item:hover,
+.mobile-bottom-bar .bottom-item.active {
+  color: var(--primary);
+}
+.mobile-bottom-bar .bottom-item svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+.mobile-bottom-bar .bottom-item .bottom-label {
+  font-weight: 700;
+  font-size: 10px;
+}
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s;
+}
+.cart-badge.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ===== MOBILE SEARCH OVERLAY ===== */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 500;
+  opacity: 0;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(2px);
+}
+.mobile-overlay.open {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+}
+.mobile-search-panel {
+  background: #fff;
+  width: 100%;
+  max-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.mobile-search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+.mobile-search-input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 40px 12px 44px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--bg-gray);
+}
+.mobile-search-input:focus {
+  border-color: var(--secondary);
+  background: #fff;
+}
+.search-icon {
+  position: absolute;
+  left: 14px;
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+}
+.mobile-search-clear {
+  position: absolute;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+}
+.mobile-search-cancel {
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--secondary);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mobile-search-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-search-suggestions h4 {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.search-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.search-tag {
+  padding: 10px 16px;
+  background: var(--bg-gray);
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 1px solid var(--border);
+}
+.search-tag:hover, .search-tag:active {
+  background: var(--secondary-light);
+  border-color: var(--secondary);
+}
+.mobile-search-results {
+  display: grid;
+  gap: 12px;
+}
+.search-result-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  align-items: center;
+}
+.search-result-item .result-img {
+  width: 60px;
+  height: 60px;
+  background: var(--bg-gray);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.search-result-item .result-info {
+  flex: 1;
+}
+.search-result-item .result-name {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.search-result-item .result-price {
+  color: var(--primary);
+  font-weight: 800;
+}
+.search-no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+/* ===== MOBILE CART OVERLAY ===== */
+.mobile-cart-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 400;
+  opacity: 0;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(2px);
+}
+.mobile-cart-overlay.open {
+  display: block;
+  opacity: 1;
+}
+.mobile-cart-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 85vh;
+  min-height: 400px;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  z-index: 401;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-cart-panel.open {
+  transform: translateY(0);
+}
+.mobile-cart-handle {
+  width: 36px;
+  height: 5px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 12px auto 8px;
+  flex-shrink: 0;
+}
+.mobile-cart-handle:active {
+  background: #bbb;
+}
+.mobile-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.mobile-cart-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+.mobile-cart-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+.mobile-cart-close:active {
+  background: var(--border);
+}
+.mobile-cart-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-cart-footer {
+  flex-shrink: 0;
+  padding: 16px 20px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+.mobile-cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+/* ===== MOBILE HERO + REDESIGN ===== */
+.mobile-hero {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --primary: #3fa9f5;
+    --primary-hover: #2d9ae6;
+    --primary-light: #e8f5ff;
+    --secondary: #3fa9f5;
+    --secondary-hover: #2d9ae6;
+    --secondary-light: #eef7ff;
+    --dark: #5a5663;
+    --text: #66626f;
+    --text-light: #8e8a97;
+    --text-muted: #b7b2bd;
+    --border: rgba(63, 169, 245, 0.18);
+    --bg-gray: #edf7ff;
+    --card-shadow: 0 18px 36px rgba(63, 169, 245, 0.12);
+    --radius: 24px;
+    --radius-sm: 18px;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(63, 169, 245, 0.16), transparent 36%),
+      linear-gradient(180deg, #fcfeff 0%, #f4faff 56%, #fafdff 100%);
+  }
+
+  .header {
+    display: none;
+  }
+
+  .mobile-hero {
+    display: block;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: max(12px, env(safe-area-inset-top)) 14px 8px;
+  }
+
+  .mobile-hero-top {
+    display: grid;
+    grid-template-columns: 44px 1fr 78px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .mobile-hero-icon,
+  .mobile-lang-button {
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(63, 169, 245, 0.14);
+    background: rgba(255, 255, 255, 0.84);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px rgba(63, 169, 245, 0.08);
+  }
+
+  .mobile-hero-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--primary);
+  }
+
+  .mobile-hero-logo {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-hero-logo .logo-img {
+    height: 74px;
+  }
+
+  .mobile-lang-button {
+    gap: 7px;
+    padding: 0 12px;
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .mobile-lang-button svg {
+    flex-shrink: 0;
+  }
+
+  .mobile-hero .delivery-toggle {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+    padding: 3px;
+    border-width: 1.5px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 24px rgba(63, 169, 245, 0.08);
+  }
+
+  .mobile-hero .delivery-toggle button {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 15px;
+    border-radius: 999px;
+  }
+
+  .mobile-address-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 10px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(63, 169, 245, 0.2);
+    background: rgba(255, 255, 255, 0.84);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(63, 169, 245, 0.06);
+  }
+
+  .mobile-address-pill span {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-address-pill.is-selected {
+    color: var(--secondary);
+    border-color: rgba(63, 169, 245, 0.34);
+  }
+
+  .main-layout {
+    display: block;
+    max-width: none;
+  }
+
+  .content {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 6px 14px 110px;
+    min-height: auto;
+  }
+
+  .section-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #5b5764;
+  }
+
+  .showcase-slider {
+    margin-bottom: 26px;
+  }
+
+  .showcase-header {
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .slider-toolbar {
+    gap: 8px;
+  }
+
+  .slider-progress {
+    width: 76px;
+  }
+
+  .slider-counter {
+    min-width: 34px;
+    font-size: 11px;
+  }
+
+  .slider-button {
+    width: 34px;
+    height: 34px;
+    box-shadow: 0 10px 24px rgba(63, 169, 245, 0.14);
+  }
+
+  .slider-button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .slider-viewport {
+    padding: 4px 1px 8px;
+  }
+
+  .promos.slider-track {
+    grid-auto-columns: calc(50% - 6px);
+    gap: 10px;
+  }
+
+  .promo-card {
+    min-width: 0;
+    min-height: 116px;
+    padding: 15px 12px;
+    border-radius: 22px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .promo-card.red {
+    background: linear-gradient(135deg, #6bc9ff 0%, #3fa9f5 58%, #2688dc 100%);
+  }
+
+  .promo-card.red::before,
+  .promo-card.red::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .promo-card.red::before {
+    width: 126px;
+    height: 126px;
+    left: -24px;
+    bottom: -38px;
+  }
+
+  .promo-card.red::after {
+    width: 154px;
+    height: 154px;
+    right: -58px;
+    top: -28px;
+  }
+
+  .promo-card.dark {
+    background:
+      linear-gradient(rgba(29, 110, 193, 0.78), rgba(18, 80, 154, 0.84)),
+      url('images/110-euphoria-set.jpg') center/cover;
+  }
+
+  .promo-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .promo-sub {
+    max-width: 110px;
+    font-size: 11px;
+  }
+
+  .promo-tag {
+    margin-top: 6px;
+    font-size: 10px;
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .promo-big {
+    margin-top: 6px;
+    font-size: 17px;
+  }
+
+  .popular-section {
+    margin-bottom: 22px;
+  }
+
+  .popular-scroll.slider-track {
+    grid-auto-columns: calc(50% - 6px);
+    gap: 10px;
+  }
+
+  .popular-item {
+    min-width: 0;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--card-shadow);
+  }
+
+  .popular-img {
+    width: 66px;
+    height: 66px;
+    border: none;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #edf8ff 0%, #ffffff 100%);
+  }
+
+  .popular-info {
+    min-width: 0;
+  }
+
+  .popular-name {
+    font-size: 13px;
+    line-height: 1.18;
+  }
+
+  .popular-price {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--dark);
+  }
+
+  .category-tabs {
+    top: 0;
+    margin: 0 -14px 14px;
+    padding: 8px 14px 10px;
+    gap: 12px;
+    border-bottom: none;
+    background: linear-gradient(180deg, rgba(246, 252, 255, 0.98), rgba(246, 252, 255, 0.92));
+    backdrop-filter: blur(12px);
+  }
+
+  .category-tabs::before,
+  .category-tabs::after {
+    display: none;
+  }
+
+  #categoryTabs .cat-tab[data-category="all"] {
+    display: none;
+  }
+
+  .cat-tab {
+    padding: 9px 16px;
+    font-size: 13px;
+    color: var(--primary);
+    background: transparent;
+    border: 1px solid transparent;
+  }
+
+  .cat-tab.active {
+    color: #fff;
+    background: var(--primary);
+    box-shadow: 0 14px 28px rgba(63, 169, 245, 0.24);
+  }
+
+  .category-section {
+    margin-bottom: 26px;
+  }
+
+  .category-section .section-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .product-grid,
+  .combo-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .product-card,
+  .combo-card {
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    grid-template-rows: auto auto;
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: 26px;
+    border: 1px solid rgba(91, 89, 101, 0.06);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--card-shadow);
+  }
+
+  .product-card:hover,
+  .combo-card:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
+  }
+
+  .product-img,
+  .combo-img {
+    grid-row: 1 / span 2;
+    min-height: 148px;
+    aspect-ratio: auto;
+    background: linear-gradient(180deg, #edf8ff 0%, #ffffff 100%);
+  }
+
+  .product-body,
+  .combo-body {
+    padding: 15px 14px 6px;
+    min-width: 0;
+  }
+
+  .product-name,
+  .combo-name {
+    margin-bottom: 6px;
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .product-weight,
+  .combo-desc {
+    font-size: 13px;
+  }
+
+  .product-desc {
+    padding-top: 6px;
+    font-size: 12px;
+    -webkit-line-clamp: 3;
+  }
+
+  .product-footer,
+  .combo-footer {
+    padding: 0 14px 14px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+
+  .btn-add,
+  .btn-later,
+  .btn-order {
+    min-height: 46px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+  }
+
+  .btn-later {
+    background: #fff;
+  }
+
+  .scroll-top {
+    display: none !important;
+  }
+
+  .mobile-bottom-bar {
+    display: flex;
+    left: 50%;
+    right: auto;
+    width: min(100%, 430px);
+    height: auto;
+    min-height: 76px;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+    border-top: none;
+    border-radius: 28px 28px 0 0;
+    background: rgba(248, 252, 255, 0.96);
+    box-shadow: 0 -14px 30px rgba(63, 169, 245, 0.14);
+    backdrop-filter: blur(16px);
+    transform: translateX(-50%);
+  }
+
+  .mobile-bottom-bar .bottom-item {
+    max-width: none;
+    min-height: 58px;
+    padding: 8px 6px;
+    gap: 5px;
+    color: #c7c0c8;
+  }
+
+  .mobile-bottom-bar .bottom-item.active {
+    color: #4d4a56;
+    background: transparent;
+  }
+
+  .mobile-bottom-bar .bottom-item.active svg {
+    stroke: var(--primary);
+  }
+
+  .mobile-bottom-bar .bottom-item .bottom-label {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .cart-badge {
+    top: 4px;
+    right: 16px;
+  }
+
+  .mobile-cart-panel {
+    left: 50%;
+    right: auto;
+    width: min(100%, 430px);
+    max-width: 430px;
+    transform: translate(-50%, 100%);
+  }
+
+  .mobile-cart-panel.open {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 420px) {
+  .mobile-hero,
+  .content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .mobile-hero-top {
+    grid-template-columns: 42px 1fr 72px;
+    gap: 10px;
+  }
+
+  .mobile-lang-button {
+    padding: 0 10px;
+  }
+
+  .popular-name {
+    font-size: 12px;
+  }
+
+  .product-card,
+  .combo-card {
+    grid-template-columns: 110px 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="#">Hakkımızda</a>
+    <a href="#">Paket servisi</a>
+    <a href="#">Mağazalarımız</a>
+    <a href="#">Bayilik</a>
+  </div>
+  <div class="top-bar-right">
+    <a href="tel:+905527093464">+90 5527093464</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Sushi Market" class="logo-img">
+    </a>
+    <div class="delivery-toggle">
+      <button class="active">Paket servisi</button>
+      <button>Gel-AL</button>
+    </div>
+    <div class="location">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Alanya
+    </div>
+    <a href="#" class="address-select" data-open-service-map>
+      <span id="desktopAddressLabel">Adres seç</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+  </div>
+  <div class="header-right">
+    <div class="lang-switch">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      TR
+    </div>
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Sepet
+    </div>
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Promosyonlar
+    </div>
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Sipariş
+    </div>
+  </div>
+</div>
+
+<div class="mobile-hero">
+  <div class="mobile-hero-top">
+    <button class="mobile-hero-icon" data-open-service-map aria-label="Konum">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+    </button>
+    <a href="#" class="mobile-hero-logo" aria-label="Sushi Market">
+      <img src="logo.png" alt="Sushi Market" class="logo-img">
+    </a>
+    <button class="mobile-lang-button" aria-label="Dil seçimi">
+      <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true">
+        <rect width="28" height="20" rx="3" fill="#E53935"/>
+        <circle cx="11" cy="10" r="5.2" fill="#fff"/>
+        <circle cx="12.8" cy="10" r="4.2" fill="#E53935"/>
+        <path d="M16.8 10l1.8.55-.7-1.65 1.55-1.05-1.9-.08-.75-1.62-.5 1.75-1.85.25 1.58.98-.45 1.77z" fill="#fff"/>
+      </svg>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+  <div class="delivery-toggle">
+    <button class="active">Paket servisi</button>
+    <button>Gel-AL</button>
+  </div>
+  <a href="#" class="mobile-address-pill" data-open-service-map><span id="mobileAddressLabel">Adres seç</span></a>
+</div>
+
+<div class="main-layout">
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <!-- PROMOTIONS -->
+    <section class="showcase-slider promo-showcase" data-slider-section>
+      <div class="showcase-header">
+        <h2 class="section-title" id="promotionsSection">Promosyonlar</h2>
+        <div class="slider-toolbar">
+          <div class="slider-progress" aria-hidden="true"><span></span></div>
+          <div class="slider-counter" data-slider-counter>01/04</div>
+          <div class="slider-buttons">
+            <button class="slider-button" type="button" data-slider-prev aria-label="Önceki promosyon">
+              <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-button" type="button" data-slider-next aria-label="Sonraki promosyon">
+              <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="slider-viewport" data-slider-viewport>
+        <div class="promos slider-track" data-slider-track>
+          <div class="promo-card red">
+            <div class="promo-title">11:00 - MESAI<br>03:00 SAATLERİMİZ</div>
+            <div class="promo-sub">çalışma saatleri / working hours</div>
+          </div>
+          <div class="promo-card dark">
+            <div class="promo-title">SINIRSIZ 3.0</div>
+            <div class="promo-tag">SUŞİ • MAKİ • RULO</div>
+            <div class="promo-big">600 TL 'DEN</div>
+          </div>
+          <div class="promo-card green">
+            <div class="promo-title">PERMANENT DISCOUNTS</div>
+            <div class="promo-sub">SÜREKLİ İNDİRİMLER</div>
+          </div>
+          <div class="promo-card light">
+            <div class="promo-title" style="color:var(--dark);">Pikap self-servis için</div>
+            <div style="font-size:28px; font-weight:900; color:var(--primary);">%11 indirim</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR ITEMS -->
+    <section class="popular-section showcase-slider popular-showcase" data-slider-section>
+      <div class="showcase-header">
+        <h2 class="section-title">Sıklıkla sipariş edilir</h2>
+        <div class="slider-toolbar">
+          <div class="slider-progress" aria-hidden="true"><span></span></div>
+          <div class="slider-counter" data-slider-counter>01/04</div>
+          <div class="slider-buttons">
+            <button class="slider-button" type="button" data-slider-prev aria-label="Önceki ürün">
+              <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-button" type="button" data-slider-next aria-label="Sonraki ürün">
+              <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="slider-viewport" data-slider-viewport>
+        <div class="popular-scroll slider-track" data-slider-track>
+          <div class="popular-item" data-product-name="Philadelphia" tabindex="0" role="button" aria-label="Philadelphia detaylarını aç">
+            <div class="popular-img"><img src="images/26-philadelphia.png" alt="Philadelphia" loading="lazy"></div>
+            <div class="popular-info">
+              <div class="popular-name">Philadelphia</div>
+              <div class="popular-price">299 ₺</div>
+            </div>
+          </div>
+          <div class="popular-item" data-product-name="Euphoria set" tabindex="0" role="button" aria-label="Öfori seti detaylarını aç">
+            <div class="popular-img"><img src="images/110-euphoria-set.jpg" alt="Öfori seti" loading="lazy"></div>
+            <div class="popular-info">
+              <div class="popular-name">Öfori seti</div>
+              <div class="popular-price">1 249 ₺</div>
+            </div>
+          </div>
+          <div class="popular-item" data-product-name="Canada tempura" tabindex="0" role="button" aria-label="Kanada tempura detaylarını aç">
+            <div class="popular-img"><img src="images/66-canada-tempura.png" alt="Kanada tempura" loading="lazy"></div>
+            <div class="popular-info">
+              <div class="popular-name">Kanada tempura</div>
+              <div class="popular-price">269 ₺</div>
+            </div>
+          </div>
+          <div class="popular-item" data-product-name="California" tabindex="0" role="button" aria-label="Kaliforniya detaylarını aç">
+            <div class="popular-img"><img src="images/31-california.png" alt="Kaliforniya" loading="lazy"></div>
+            <div class="popular-info">
+              <div class="popular-name">Kaliforniya</div>
+              <div class="popular-price">299 ₺</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY TABS (filtre: data-category) -->
+    <div class="category-tabs" id="categoryTabs">
+      <button class="cat-tab" data-target="tum-menu" data-category="all">Tümü</button>
+      <button class="cat-tab active" data-target="tum-menu" data-category="vejeterian">Vejeterian</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="birlikte">Birlikte daha ucuz</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="rulolar">Rulolar</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="setler">Setler</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="sicak-rulo">Sıcak rulo</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="wok">Wok</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="pismis">Pişmiş rulolar</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="pizza">Pizza</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="luxe">Luxe</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="salatalar">Salatalar</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="corbalar">Çorbalar</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="icecekler">İçecekler</button>
+      <button class="cat-tab" data-target="tum-menu" data-category="soslar">Soslar</button>
+    </div>
+
+    <!-- MENÜ (products.json - tek kaynak) -->
+    <div class="category-section" id="tum-menu">
+      <h2 class="section-title" id="menuSectionTitle">Vejeterian</h2>
+      <div class="product-grid" id="productsFromJson">
+        <div class="products-loading" style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Yükleniyor…</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-ocean">
+      <div class="footer-content">
+        <div class="footer-top">
+          <div class="footer-brand-card">
+            <span class="footer-kicker">Sushi Sea Alanya</span>
+            <a href="#" class="footer-brand">
+              <span class="footer-logo-shell">
+                <img src="logo.png" alt="Sushi Sea" class="logo-img">
+              </span>
+              <span>
+                <span class="footer-brand-title">Taze hazırlanan sushi, hızlı teslimat ve güçlü mavi bir imza.</span>
+                <span class="footer-brand-text">Rulolar, setler, wok ve favori lezzetlerin tek ekranda toplandığı deneyimi daha zarif, daha hızlı ve daha iştah açıcı hale getiriyoruz.</span>
+              </span>
+            </a>
+            <div class="footer-chip-row">
+              <span class="footer-chip">Paket servisi</span>
+              <span class="footer-chip">Gel-Al avantajı</span>
+              <span class="footer-chip">Her gün taze üretim</span>
+            </div>
+            <div class="footer-contact-row">
+              <a href="tel:+905527093464" class="footer-phone">+90 552 709 34 64</a>
+              <span class="footer-note">Alanya merkez teslimat bölgesinde aktif servis</span>
+            </div>
+          </div>
+
+          <div class="footer-meta-grid">
+            <div class="footer-panel">
+              <div class="footer-panel-title">Menü</div>
+              <div class="footer-list">
+                <a href="#menuSectionTitle">Rulolar</a>
+                <a href="#menuSectionTitle">Setler</a>
+                <a href="#menuSectionTitle">Wok</a>
+                <a href="#menuSectionTitle">Salatalar</a>
+              </div>
+            </div>
+
+            <div class="footer-panel">
+              <div class="footer-panel-title">Keşfet</div>
+              <div class="footer-list">
+                <a href="#promotionsSection">Promosyonlar</a>
+                <a href="#">Hakkımızda</a>
+                <a href="#">Mağazalarımız</a>
+                <a href="#">Bayilik</a>
+              </div>
+            </div>
+
+            <div class="footer-panel is-highlight">
+              <div class="footer-panel-title">Servis Bilgileri</div>
+              <div class="footer-highlight">
+                <div class="footer-highlight-item footer-highlight-item--delivery">
+                  <div class="footer-highlight-top">
+                    <span class="footer-highlight-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M3 16h2l2.2-6.5A2 2 0 0 1 9.1 8H14v8H8"/><path d="M14 10h3.5l3 3V16h-2"/><circle cx="8" cy="16.5" r="1.5"/><circle cx="18" cy="16.5" r="1.5"/></svg>
+                    </span>
+                    <span class="footer-highlight-label">Paket Servisi</span>
+                  </div>
+                  <strong class="footer-highlight-value">35 dk</strong>
+                  <div class="footer-highlight-copy">Ortalama sıcak teslimat süresi ve canlı sipariş akışı.</div>
+                </div>
+                <div class="footer-highlight-item footer-highlight-item--pickup">
+                  <div class="footer-highlight-top">
+                    <span class="footer-highlight-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M7 7h10"/><path d="M6 10h12"/><path d="M8 4h8"/><path d="M6 13h12"/><path d="M9 16h6"/><path d="M12 6v12"/></svg>
+                    </span>
+                    <span class="footer-highlight-label">Gel-Al</span>
+                  </div>
+                  <strong class="footer-highlight-value">Hızlı Hazırlık</strong>
+                  <div class="footer-highlight-copy">Self servis siparişlerde avantajlı teslim alma ve beklemeden paket teslim.</div>
+                </div>
+                <div class="footer-highlight-item footer-highlight-item--hours">
+                  <div class="footer-highlight-top">
+                    <span class="footer-highlight-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>
+                    </span>
+                    <span class="footer-highlight-label">Çalışma Saatleri</span>
+                  </div>
+                  <strong class="footer-highlight-value">11:00 - 03:00</strong>
+                  <div class="footer-highlight-copy">Açık mutfak, gün boyu yenilenen menü ve geceye uzanan servis temposu.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Sushi Sea. Tüm hakları saklıdır.</span>
+          <div class="footer-bottom-links">
+            <a href="#">Yasal bilgi</a>
+            <a href="#">Gizlilik</a>
+            <a href="#">Teslimat koşulları</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SIDEBAR CART -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">Siparişiniz</div>
+    <div class="sidebar-body" id="cartEmpty">
+      <svg class="cart-empty-icon" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="0.5" opacity="0.3">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <div class="cart-empty-title">Kart boş</div>
+      <div class="cart-empty-sub">Yemekleri seçin ve siparişe ekleyin</div>
+    </div>
+    <div class="cart-items" id="cartItems" style="display:none;"></div>
+    <div class="sidebar-footer">
+      <div class="receipt-title">Fiş</div>
+      <div class="receipt-toggle">
+        <button class="active">Paket servisi</button>
+        <button>Gel-AL</button>
+      </div>
+      <div class="promo-input">
+        <input type="text" placeholder="Promosyon kodu">
+        <button>Kontrol etmek</button>
+      </div>
+      <div class="receipt-row">
+        <span>Sipariş tutarı</span>
+        <span id="subtotal">0 ₺</span>
+      </div>
+      <div class="receipt-row total">
+        <span>Toplam</span>
+        <span id="total">0 ₺</span>
+      </div>
+      <button class="btn-order">Sipariş et</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <button class="bottom-item" onclick="goToSection('info')" id="nav-info">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="10" x2="12" y2="16"/><circle cx="12" cy="7" r="1"/></svg>
+    <span class="bottom-label">Bilgi</span>
+  </button>
+  <button class="bottom-item" onclick="goToSection('promotions')" id="nav-promotions">
+    <svg viewBox="0 0 24 24"><path d="M8 3h8l4 4v10a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+    <span class="bottom-label">Promosyonlar</span>
+  </button>
+  <button class="bottom-item active" onclick="goToSection('menu')" id="nav-menu">
+    <svg viewBox="0 0 24 24"><path d="M5 7h14"/><path d="M5 12h14"/><path d="M5 17h14"/></svg>
+    <span class="bottom-label">Menü</span>
+  </button>
+  <button class="bottom-item" onclick="goToSection('orders')" id="nav-orders">
+    <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h4"/></svg>
+    <span class="bottom-label">Sipariş</span>
+  </button>
+  <button class="bottom-item" onclick="goToSection('cart')" id="nav-cart">
+    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span class="cart-badge" id="mobileBadge">0</span>
+    <span class="bottom-label">Sepet</span>
+  </button>
+</div>
+
+<!-- SERVICE MAP MODAL -->
+<div class="service-map-overlay" id="serviceMapOverlay" aria-hidden="true" onclick="closeServiceMapModal()">
+  <div class="service-map-modal" role="dialog" aria-modal="true" aria-labelledby="serviceMapTitle" onclick="event.stopPropagation()">
+    <button class="service-map-close" type="button" aria-label="Adres haritasını kapat" onclick="closeServiceMapModal()">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <div class="service-map-stage">
+      <div class="service-map-toolbar">
+        <div class="service-map-title-card">
+          <div class="service-map-kicker">Canlı teslimat haritası</div>
+          <div class="service-map-heading" id="serviceMapTitle">Adresini haritadan seç, servis alanını anında gör.</div>
+          <div class="service-map-copy">Renkli alanlar aktif teslimat bölgelerimizi gösterir. Haritada bir noktaya tıkla, mahalle ve cadde bilgisini doğrudan dolduralım.</div>
+        </div>
+        <div class="service-map-toggle-shell">
+          <div class="delivery-toggle">
+            <button class="active" type="button">Paket servisi</button>
+            <button type="button">Gel-AL</button>
+          </div>
+        </div>
+      </div>
+      <div class="service-map-canvas">
+        <div id="serviceMap" aria-label="Teslimat haritası"></div>
+      </div>
+    </div>
+    <aside class="service-map-sidebar">
+      <div class="service-map-sidebar-head">
+        <strong>Servis alanı seçimi</strong>
+        <p>Mahalle, cadde veya sokağını seçmek için haritadaki renkli alanlardan bir noktaya dokun.</p>
+      </div>
+      <div class="service-map-status" id="serviceMapStatus">Harita yükleniyor...</div>
+      <div class="service-map-zone-card">
+        <span class="service-map-zone-pill" id="serviceZonePill">Adres bekleniyor</span>
+        <div class="service-map-zone-name" id="serviceZoneName">Henüz bir servis noktası seçilmedi</div>
+        <div class="service-map-zone-text" id="serviceZoneText">Renkli alanlardan birine tıklayınca seçilen bölge, tahmini süre ve adres burada görünecek.</div>
+        <div class="service-map-zone-meta">
+          <span id="serviceZoneEta">Tahmini süre: -</span>
+          <span id="serviceZoneCoverage">Bölge: -</span>
+        </div>
+      </div>
+      <div class="service-map-legend">
+        <div class="service-map-legend-title">Aktif teslimat bölgeleri</div>
+        <div class="service-map-legend-grid" id="serviceMapLegend"></div>
+      </div>
+      <div class="service-map-field">
+        <label class="service-map-field-label" for="serviceMapAddressInput">Adres</label>
+        <div class="service-map-input-wrap">
+          <svg class="service-map-input-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <input type="text" class="service-map-input" id="serviceMapAddressInput" placeholder="Haritadan bir nokta seçin ya da adresi düzenleyin" autocomplete="street-address">
+        </div>
+      </div>
+      <div class="service-map-chip-row">
+        <span class="service-map-chip"><i style="background:#ffd56f"></i>Merkez hızlı teslimat</span>
+        <span class="service-map-chip"><i style="background:#9de6a7"></i>Oba ve Tosmur aktif</span>
+        <span class="service-map-chip"><i style="background:#7eaefc"></i>Kestel ve sahil hattı</span>
+      </div>
+      <button class="service-map-confirm" type="button" id="serviceMapConfirmBtn" disabled>Bu adresi kullan</button>
+      <div class="service-map-footnote" id="serviceMapFootnote">İpucu: Adres alanı otomatik dolar; istersen teslimat notunu elle de düzenleyebilirsin.</div>
+    </aside>
+  </div>
+</div>
+
+<!-- MOBILE SEARCH OVERLAY -->
+<div class="mobile-overlay" id="mobileSearchOverlay" onclick="closeMobileSearch()">
+  <div class="mobile-search-panel" onclick="event.stopPropagation()">
+    <div class="mobile-search-header">
+      <div class="mobile-search-input-wrapper">
+        <svg viewBox="0 0 24 24" class="search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="mobile-search-input" placeholder="Yemek ara..." id="mobileSearchInput">
+        <button class="mobile-search-clear" onclick="clearMobileSearch()" style="display:none;">✕</button>
+      </div>
+      <button class="mobile-search-cancel" onclick="closeMobileSearch()">İptal</button>
+    </div>
+    <div class="mobile-search-body">
+      <div class="mobile-search-suggestions">
+        <h4>Popüler Aramalar</h4>
+        <div class="search-tags">
+          <span class="search-tag" onclick="quickSearch('sushi')">🍣 Sushi</span>
+          <span class="search-tag" onclick="quickSearch('rulo')">🍱 Rulo</span>
+          <span class="search-tag" onclick="quickSearch('wok')">🍜 Wok</span>
+          <span class="search-tag" onclick="quickSearch('pizza')">🍕 Pizza</span>
+          <span class="search-tag" onclick="quickSearch('salata')">🥗 Salata</span>
+        </div>
+      </div>
+      <div class="mobile-search-results" id="mobileSearchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE CART OVERLAY -->
+<div class="mobile-cart-overlay" id="mobileCartOverlay" onclick="closeMobileCart()"></div>
+<div class="mobile-cart-panel" id="mobileCartPanel">
+  <div class="mobile-cart-handle"></div>
+  <div class="mobile-cart-header">
+    <h3>Siparişiniz</h3>
+    <button class="mobile-cart-close" onclick="closeMobileCart()">✕</button>
+  </div>
+  <div class="mobile-cart-body" id="mobileCartBody">
+    <div style="text-align:center; padding:40px 0; color:var(--text-muted);">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="0.5" style="opacity:0.3; margin-bottom:12px;">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <div style="font-weight:800; color:var(--dark); margin-bottom:4px;">Kart boş</div>
+      <div style="font-size:13px;">Yemekleri seçin ve siparişe ekleyin</div>
+    </div>
+  </div>
+  <div class="mobile-cart-footer">
+    <div class="mobile-cart-total">
+      <span>Toplam</span>
+      <span id="mobileTotal">0 ₺</span>
+    </div>
+    <button class="btn-order" onclick="closeMobileCart()">Sipariş et</button>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="product-modal-overlay" id="productModalOverlay" aria-hidden="true" onclick="closeProductModal()">
+  <div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle" onclick="event.stopPropagation()">
+    <button class="product-modal-close" type="button" id="productModalClose" aria-label="Ürün detayını kapat" onclick="closeProductModal()">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <div class="product-modal-media">
+      <div class="product-modal-visual" id="productModalImage">
+        <div class="emoji-placeholder">🍣</div>
+      </div>
+    </div>
+    <div class="product-modal-content">
+      <div class="product-modal-eyebrow" id="productModalCategory">Menü</div>
+      <h3 class="product-modal-title" id="productModalTitle">Ürün detayı</h3>
+      <p class="product-modal-desc" id="productModalDesc">Bu lezzet şeflerimiz tarafından günlük olarak hazırlanıyor.</p>
+      <div class="product-modal-meta">
+        <span id="productModalMeta">1 porsiyon</span>
+        <span class="product-modal-info" aria-hidden="true">i</span>
+      </div>
+      <div class="product-modal-section-head">
+        <div class="product-modal-section-title">Bu ürünü tamamla</div>
+        <div class="product-modal-note" id="productModalOptionNote">İsteğe bağlı seçimler</div>
+      </div>
+      <div class="product-modal-options" id="productModalOptions"></div>
+      <div class="product-modal-footer">
+        <div class="product-modal-total">
+          <span class="product-modal-total-label">Toplam</span>
+          <strong id="productModalPrice">0 ₺</strong>
+        </div>
+        <button class="product-modal-add" type="button" id="productModalAddBtn">Sepete ekle</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.2.0/turf.min.js"></script>
+<script id="menuProductsData" type="application/json">[{"name":"Kappa maki","price":"189 ₺","description":"Cucumber, sesame, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_48/65870f4643f00-800x800.png","localImage":"images/0-kappa-maki.png"},{"name":"Warm-eggplants salad","price":"249 ₺","description":"Eggplants, tomates, teriyaki sauce, sweet-chilli sauce, cilantro, sesame","image":"https://storage.yandexcloud.net/sushi-market/products/product_1449/632985c42cbdb-800x800.jpg","localImage":"images/1-warm-eggplants-salad.jpg"},{"name":"Maki with avokado","price":"249 ₺","description":"Avocado, sesame, rice, nori, sesame sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_1430/624716bc9741f-800x800.jpg","localImage":"images/2-maki-with-avokado.jpg"},{"name":"Yasai maki","price":"219 ₺","description":"Fresh cucumber, green onion, bell pepper, ginger, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_1435/658856a734f6e-800x800.png","localImage":"images/3-yasai-maki.png"},{"name":"Mushroom soup","price":"249 ₺","description":"Champignons, shiitake mushrooms, sesame oil, onions, sunflower oil","image":"https://storage.yandexcloud.net/sushi-market/products/product_1519/660135491f8f7-800x800.png","localImage":"images/4-mushroom-soup.png"},{"name":"Shiitake maki","price":"209 ₺","description":"Shiitake mushrooms, rice, nori (8 pcs","image":"https://storage.yandexcloud.net/sushi-market/products/product_1515/65fc03b085aac-800x800.png","localImage":"images/5-shiitake-maki.png"},{"name":"Maki mix","price":"209 ₺","description":"Shiitake mushrooms, takuan, chuka, rice, nori (8 pcs","image":"https://storage.yandexcloud.net/sushi-market/products/product_1520/66013cbd4fdb9-800x800.png","localImage":"images/6-maki-mix.png"},{"name":"Student set","price":"329 ₺","description":"Chicken Katsu Roll, chicken wok in teriyaki sauce, drink","image":"https://storage.yandexcloud.net/sushi-market/products/product_1560/694261a735444-800x800.png","localImage":"images/7-student-set.png"},{"name":"Tempura canada + philadelphia with cucumber","price":"499 ₺","description":"Tempura Canada (8 pcs), Philadelphia with cucumber (8 pcs)","image":"https://storage.yandexcloud.net/sushi-market/products/product_1555/692439708344b-800x800.png","localImage":"images/8-tempura-canada-philadelphia-with-cucumber.png"},{"name":"Tempura canada + tempura philadelphia","price":"499 ₺","description":"Tempura Canada (8 pcs), Tempura Philadelphia (8 pcs)","image":"https://storage.yandexcloud.net/sushi-market/products/product_1556/692442b9bc8bc-800x800.png","localImage":"images/9-tempura-canada-tempura-philadelphia.png"},{"name":"Hot wave","price":"675 ₺","description":"Tempura Canada (8 pcs), Baked Salmon in Teriyaki sauce (8 pcs), Ebi San (5 pcs)","image":"https://storage.yandexcloud.net/sushi-market/products/product_1557/692446e3629d6-800x800.png","localImage":"images/10-hot-wave.png"},{"name":"Sushi with salmon","price":"84 ₺","description":"Rice, salmon","image":"https://storage.yandexcloud.net/sushi-market/products/product_183/658713884427c-800x800.png","localImage":"images/20-sushi-with-salmon.png"},{"name":"Sushi with eel","price":"129 ₺","description":"Rice, eel, nori, unagi sauce, sesame","image":"https://storage.yandexcloud.net/sushi-market/products/product_182/6587136d612f2-800x800.png","localImage":"images/21-sushi-with-eel.png"},{"name":"Philadelphia lux with avokado","price":"349 ₺","description":"Salmon, tobiko caviar, avocado, cream cheese, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_1433/624716665513b-800x800.jpeg","localImage":"images/22-philadelphia-lux-with-avokado.jpeg"},{"name":"Philadelphia with cucumber","price":"299 ₺","description":"Salmon, cream cheese, cucumber, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_58/6587105509209-800x800.png","localImage":"images/23-philadelphia-with-cucumber.png"},{"name":"Philadelphia duet","price":"319 ₺","description":"Lightly salted salmon, tuna, cream cheese, cucumber, rice, nori319 ₺Be later","image":"https://storage.yandexcloud.net/sushi-market/products/product_1535/6755cabfd1aee-800x800.png","localImage":"images/24-philadelphia-duet.png"},{"name":"Philaderphia luxe","price":"349 ₺","description":"Salmon, tobiko caviar, cucumber, cream cheese, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_57/65871038d6a2f-800x800.png","localImage":"images/25-philaderphia-luxe.png"},{"name":"Philadelphia","price":"299 ₺","description":"Salmon, cream cheese, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_55/65870fe9aab12-800x800.png","localImage":"images/26-philadelphia.png"},{"name":"California lux","price":"309 ₺","description":"Tobiko caviar, shrimp, cream cheese, cucumber, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_47/65870f2f67326-800x800.png","localImage":"images/27-california-lux.png"},{"name":"Canada tempura","price":"269 ₺","description":"Salmon, cream cheese, fresh cucumber, rice, nori, Panko","image":"https://storage.yandexcloud.net/sushi-market/products/product_34/65870cfb79586-800x800.png","localImage":"images/66-canada-tempura.png"},{"name":"Philadelphia tempura","price":"299 ₺","description":"Salmon, cream cheese, rice, nori, Panko","image":"https://storage.yandexcloud.net/sushi-market/products/product_30/65870b84b5dad-800x800.png","localImage":"images/67-philadelphia-tempura.png"},{"name":"Spicy tempura","price":"259 ₺","description":"Shrimp, cream cheese, rice, nori, Panko, topped with spicy Lava sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_291/6587157bb1ff5-800x800.png","localImage":"images/68-spicy-tempura.png"},{"name":"Singapore tempura","price":"329 ₺","description":"Eel, cream cheese, rice, nori, Panko , topped with cheese, salmon caviar (ikura) and a green onion flake","image":"https://storage.yandexcloud.net/sushi-market/products/product_32/65870cb075e85-800x800.png","localImage":"images/69-singapore-tempura.png"},{"name":"Chicken wok (teriyaki)","price":"269 ₺","description":"Carrots, bell peppers, Chinese cabbage, green onions, cilantro, white sesame seeds, Wok seasoning, sauce, noodles","image":"https://storage.yandexcloud.net/sushi-market/products/product_352/658840592ed70-800x800.png","localImage":"images/77-chicken-wok-teriyaki.png"},{"name":"Shrimps wok (teriyaki)","price":"329 ₺","description":"Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame seeds, wok seasoning, sauce, udon noodles","image":"https://storage.yandexcloud.net/sushi-market/products/product_377/65884184d8d14-800x800.png","localImage":"images/78-shrimps-wok-teriyaki.png"},{"name":"Chicken wok (spicy)","price":"269 ₺","description":"Carrots, bell peppers, Chinese cabbage, green onions, cilantro, white sesame seeds, Wok seasoning, sauce, noodles","image":"https://storage.yandexcloud.net/sushi-market/products/product_350/6588401e6ae90-800x800.png","localImage":"images/79-chicken-wok-spicy.png"},{"name":"Vegetables wok (teriyaki)","price":"249 ₺","description":"Carrots, bell peppers, chinese cabbage, green onions, cilantro, white sesame, wok seasoning, sauce, noodles","image":"https://storage.yandexcloud.net/sushi-market/products/product_382/65884225e2503-800x800.png","localImage":"images/84-vegetables-wok-teriyaki.png"},{"name":"Pizza margeritha 30 cm","price":"259 ₺","description":"Mozzarella cheese, tomato sauce, herbs","image":"https://storage.yandexcloud.net/sushi-market/products/product_333/65871b0bdcce2-800x800.png","localImage":"images/104-pizza-margeritha-30-cm.png"},{"name":"Chicken-cheese pizza 30 cm","price":"389 ₺","description":"Turkey, tomatoes, cheese sauce, mozzarella cheese","image":"https://storage.yandexcloud.net/sushi-market/products/product_339/6587243e7ed5f-800x800.png","localImage":"images/105-chicken-cheese-pizza-30-cm.png"},{"name":"Pizza hawaii 30 cm","price":"429 ₺","description":"Chicken, pineapple, mozzarella cheese, pizza sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_785/658849aa00fa1-800x800.png","localImage":"images/106-pizza-hawaii-30-cm.png"},{"name":"Philadelphia pizza 30 cm","price":"529 ₺","description":"Salted salmon, salmon caviar, cream cheese, mozzarella cheese, white sesame seeds, tomato sauce, herbs","image":"https://storage.yandexcloud.net/sushi-market/products/product_341/65883fdb7f77a-800x800.png","localImage":"images/107-philadelphia-pizza-30-cm.png"},{"name":"California premium","price":"415 ₺","description":"Salted salmon, cream cheese, Masago caviar, avocado, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_911/658854039acf8-800x800.jpg","localImage":"images/109-california-premium.jpg"},{"name":"Action","price":"429 ₺","description":"Salted salmon, shrimp, fresh cucumber, cream cheese, sesame, tobiko caviar, mango-chili sauce, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_904/65885276587f5-800x800.png","localImage":"images/121-action.png"},{"name":"Fusion","price":"699 ₺","description":"Salted salmon, green Tobiko caviar, raspberry Tobiko caviar, cucumber, cream cheese, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_755/65884880bc2dd-800x800.png","localImage":"images/122-fusion.png"},{"name":"Ideal","price":"435 ₺","description":"Lightly salted salmon, shrimp, sesame seeds, tobiko caviar, rice, nori","image":"https://storage.yandexcloud.net/sushi-market/products/product_912/6588544ce48e5-800x800.jpg","localImage":"images/124-ideal.jpg"},{"name":"Vegeterian set","price":"529 ₺","description":"Ginger yasai 4, yasai tempura 4, kappa maki 8, maki with avokado 4, maki with takuwan 4, maki with chukka algae 4","image":"https://storage.yandexcloud.net/sushi-market/products/product_1442/6327310a6fb63-800x800.jpg","localImage":"images/60-vegeterian-set.jpg"},{"name":"Shock 2.0 (40 pcs)","price":"529 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_1407/65885592632cd-800x800.png","localImage":"images/48-shock-2-0-40-pcs.png"},{"name":"Mega hit (32 pcs)","price":"939 ₺","description":"California (4 pcs","image":"https://storage.yandexcloud.net/sushi-market/products/product_389/6588436f0380a-800x800.png","localImage":"images/52-mega-hit-32-pcs.png"},{"name":"Big set (48 pc)","price":"999 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_391/658843b8b547f-800x800.png","localImage":"images/59-big-set-48-pc.png"},{"name":"Salmon baked creamy","price":"258 ₺","description":"Salmon, spicy sauce, rice, nori, topped with sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_916/658854713948f-800x800.png","localImage":"images/96-salmon-baked-creamy.png"},{"name":"Salmon baked hot","price":"249 ₺","description":"Salmon, spicy sauce, rice, nori, topped with sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_1434/6588568e51bb2-800x800.png","localImage":"images/97-salmon-baked-hot.png"},{"name":"Shrimp baked creamy","price":"248 ₺","description":"Shrimp, cream cheese, Spicy sauce, rice, nori, topped with sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_401/6588444f1080b-800x800.png","localImage":"images/91-shrimp-baked-creamy.png"},{"name":"Tuna baked","price":"249 ₺","description":"Tuna, cream cheese, fresh cucumber, rice, nori, covered in tuna flakes, topped with sauce","image":"https://storage.yandexcloud.net/sushi-market/products/product_1427/6588562c816ff-800x800.png","localImage":"images/101-tuna-baked.png"},{"name":"Caesar chicken","price":"299 ₺","description":"Marinated chicken, romano salad, cherry tomatoes, chicken egg, caesar sauce, croutons","image":"https://storage.yandexcloud.net/sushi-market/products/product_320/65871aed9b91c-800x800.png","localImage":"images/129-caesar-chicken.png"},{"name":"Caesar salad with salmon","price":"299 ₺","description":"Lightly salted salmon, Romano lettuce, cherry tomatoes, chicken egg, Caesar sauce, croutons","image":"https://storage.yandexcloud.net/sushi-market/products/product_1552/6852aca5d1d9b-800x800.png","localImage":"images/130-caesar-salad-with-salmon.png"},{"name":"Caesar salad with shrimps","price":"299 ₺","description":"Shrimps, garlic oil, Romano lettuce, cherry tomatoes, chicken egg, Caesar sauce, croutons","image":"https://storage.yandexcloud.net/sushi-market/products/product_1553/6852accfdb407-800x800.png","localImage":"images/131-caesar-salad-with-shrimps.png"},{"name":"Tom-yum","price":"359 ₺","description":"Tom Yam broth, fresh champignons, shrimps, cherry tomatoes, mussels, squid, cilantro, rice","image":"https://storage.yandexcloud.net/sushi-market/products/product_306/65871ac321552-800x800.png","localImage":"images/132-tom-yum.png"},{"name":"Chicken ramen","price":"359 ₺","description":"Ramen broth, udon noodles, zucchini, spinach, green onion, poached egg, ginger, carrots, beans, chicken thigh","image":"https://storage.yandexcloud.net/sushi-market/products/product_462/65884643187dc-800x800.png","localImage":"images/133-chicken-ramen.png"},{"name":"Bougnon soup","price":"309 ₺","description":"Cream boulyon, salmon, shrimps, squid, rice, spices","image":"https://storage.yandexcloud.net/sushi-market/products/product_1422/6246e37e5f5e5-800x800.jpeg","localImage":"images/134-bougnon-soup.jpeg"},{"name":"Ramen light","price":"339 ₺","description":"Chicken broth, chicken thigh, ramen noodles, carrots, spinach, poached egg, green onion","image":"https://storage.yandexcloud.net/sushi-market/products/product_1261/658854da6b075-800x800.png","localImage":"images/135-ramen-light.png"},{"name":"Yеdigün","price":"80 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_1545/67c072569a210-800x800.png","localImage":"images/138-y-digun.png"},{"name":"Pеpsı max","price":"80 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_1546/67c072780c48b-800x800.png","localImage":"images/139-p-ps-max.png"},{"name":"Pеpsı","price":"80 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_1547/67c0729b34b95-800x800.png","localImage":"images/140-p-ps.png"},{"name":"Lımon frеsh","price":"80 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_1548/67c07370902f4-800x800.png","localImage":"images/141-l-mon-fr-sh.png"},{"name":"Ginger","price":"10 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_81/65871190c8734-800x800.jpg","localImage":"images/146-ginger.jpg"},{"name":"Wasabi","price":"10 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_83/624698e505d3a-800x800.jpg","localImage":"images/147-wasabi.jpg"},{"name":"Chopsticks","price":"5 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_84/62469922143d1-800x800.jpg","localImage":"images/148-chopsticks.jpg"},{"name":"Soy sauce","price":"10 ₺","image":"https://storage.yandexcloud.net/sushi-market/products/product_82/62469879a9141-800x800.jpg","localImage":"images/149-soy-sauce.jpg"}]</script>
+
+<script>
+// Cart Logic
+let cart = {};
+
+function addToCart(name, price, emoji, image) {
+  if (cart[name]) {
+    cart[name].qty++;
+    if (image !== undefined && image !== '') cart[name].image = image;
+  } else {
+    cart[name] = { price, emoji, qty: 1, image: image || '' };
+  }
+  renderCart();
+}
+
+function removeFromCart(name) {
+  if (cart[name]) {
+    cart[name].qty--;
+    if (cart[name].qty <= 0) delete cart[name];
+  }
+  renderCart();
+}
+
+function getCartItemHTML(name, item, itemTotal) {
+  const escapedName = name.replace(/'/g, "\\'");
+  const escapedImage = (item.image || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const imgHtml = item.image
+    ? `<img src="${String(item.image).replace(/"/g, '&quot;')}" alt="" loading="lazy">`
+    : `<div class="emoji-placeholder tiny">${item.emoji}</div>`;
+  return `
+    <div class="cart-item">
+      <div class="cart-item-img">${imgHtml}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${name}</div>
+        <div class="cart-item-weight">${item.price} ₺</div>
+      </div>
+      <div class="cart-item-controls">
+        <button class="cart-qty-btn" onclick="removeFromCart('${escapedName}')">−</button>
+        <span class="cart-qty">${item.qty}</span>
+        <button class="cart-qty-btn" onclick="addToCart('${escapedName}', ${item.price}, '${item.emoji}', '${escapedImage}')">+</button>
+      </div>
+      <div class="cart-item-price">${itemTotal} ₺</div>
+    </div>
+  `;
+}
+
+function renderCart() {
+  const cartEmpty = document.getElementById('cartEmpty');
+  const cartItems = document.getElementById('cartItems');
+  const keys = Object.keys(cart);
+
+  // Desktop sidebar
+  if (keys.length === 0) {
+    cartEmpty.style.display = 'flex';
+    cartItems.style.display = 'none';
+  } else {
+    cartEmpty.style.display = 'none';
+    cartItems.style.display = 'block';
+  }
+
+  let html = '';
+  let total = 0;
+  let totalQty = 0;
+  keys.forEach(name => {
+    const item = cart[name];
+    const itemTotal = item.price * item.qty;
+    total += itemTotal;
+    totalQty += item.qty;
+    html += getCartItemHTML(name, item, itemTotal);
+  });
+
+  cartItems.innerHTML = html;
+  document.getElementById('subtotal').textContent = total + ' ₺';
+  document.getElementById('total').textContent = total + ' ₺';
+
+  // Mobile cart
+  const mobileCartBody = document.getElementById('mobileCartBody');
+  if (keys.length === 0) {
+    mobileCartBody.innerHTML = `
+      <div style="text-align:center; padding:40px 0; color:var(--text-muted);">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="0.5" style="opacity:0.3; margin-bottom:12px;">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <div style="font-weight:800; color:var(--dark); margin-bottom:4px;">Kart boş</div>
+        <div style="font-size:13px;">Yemekleri seçin ve siparişe ekleyin</div>
+      </div>`;
+  } else {
+    mobileCartBody.innerHTML = html;
+  }
+  document.getElementById('mobileTotal').textContent = total + ' ₺';
+
+  // Mobile badge
+  const badge = document.getElementById('mobileBadge');
+  if (totalQty > 0) {
+    badge.textContent = totalQty;
+    badge.classList.add('visible');
+  } else {
+    badge.classList.remove('visible');
+  }
+}
+
+// Mobile cart open/close
+function openMobileCart() {
+  document.getElementById('mobileCartOverlay').classList.add('open');
+  document.getElementById('mobileCartPanel').classList.add('open');
+  syncBodyScrollState();
+}
+function closeMobileCart() {
+  document.getElementById('mobileCartOverlay').classList.remove('open');
+  document.getElementById('mobileCartPanel').classList.remove('open');
+  syncBodyScrollState();
+  document.querySelectorAll('.bottom-item').forEach(item => item.classList.remove('active'));
+  document.getElementById('nav-menu')?.classList.add('active');
+}
+
+// Kategori atama (isim + açıklama anahtar kelime)
+function getProductCategory(p) {
+  const t = ((p.name || '') + ' ' + (p.description || '')).toLowerCase();
+  if (/mega hit|mega party|corporative|philamania|big set|vegeterian set|from dusk|tete-a-tete|fish-n-roll|the legend|imperial set|tokyo mix|fight fish|euphoria set/i.test(t) || /\d+\s*pc[s]?\s*\)/i.test(t) && /set|combo/i.test(t)) return 'setler';
+  if (/student set|tempura canada \+|hot wave|shock\s*\+|duet/i.test(t)) return 'birlikte';
+  if (/tempura|singapore tempura|sezar tempura|yasai tempura|norwegian tempura|chiken tempura|chicken cheese tempura/i.test(t) && !/set\s*\(|combo/i.test(t)) return 'sicak-rulo';
+  if (/wok/i.test(t)) return 'wok';
+  if (/baked|pismis/i.test(t)) return 'pismis';
+  if (/pizza/i.test(t)) return 'pizza';
+  if (/luxe|lux gold|premium|fortune|vatican|malibu|action|fusion|ideal|rich|black mamba/i.test(t)) return 'luxe';
+  if (/salad|caesar|poke/i.test(t)) return 'salatalar';
+  if (/soup|ramen|tom-yum|bougnon/i.test(t)) return 'corbalar';
+  if (/pepsi|yedigün|limon|tea|mulled|puer|oolong|passion fruit oolong/i.test(t) || /0\.33|330\s*ml/i.test(t)) return 'icecekler';
+  if (/^ginger$|^wasabi$|chopsticks|soy sauce/i.test(t) || (/ginger|wasabi|chopsticks|soy sauce/i.test(t) && !/salad|poke|roll|maki/i.test(t))) return 'soslar';
+  if (/kappa|yasai maki|shiitake maki|maki mix|eggplant|avokado|mushroom soup|vegetable|veggie|warm-eggplants/i.test(t)) return 'vejeterian';
+  if (/philadelphia|california|maki|roll|dragon|boston|ebi|salmon|tuna|unagi|nigiri|gunkan|spring roll|onigiri/i.test(t)) return 'rulolar';
+  return 'rulolar';
+}
+
+const menuCategoryLabels = {
+  all: 'Menü',
+  vejeterian: 'Vejeterian',
+  birlikte: 'Birlikte daha ucuz',
+  rulolar: 'Rulolar',
+  setler: 'Setler',
+  'sicak-rulo': 'Sıcak rulo',
+  wok: 'Wok',
+  pismis: 'Pişmiş rulolar',
+  pizza: 'Pizza',
+  luxe: 'Luxe',
+  salatalar: 'Salatalar',
+  corbalar: 'Çorbalar',
+  icecekler: 'İçecekler',
+  soslar: 'Soslar'
+};
+
+function getMenuCategoryLabel(category) {
+  return menuCategoryLabels[category] || 'Menü';
+}
+
+const productModalAddonOrder = ['ginger', 'wasabi', 'soy sauce', 'chopsticks'];
+const productModalAddonLabels = {
+  ginger: 'Zencefil',
+  wasabi: 'Wasabi',
+  'soy sauce': 'Soya sosu',
+  chopsticks: 'Çubuklar'
+};
+
+let productModalState = {
+  product: null,
+  trigger: null
+};
+
+function escapeHtmlText(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function normalizeProductLookup(value) {
+  return String(value || '')
+    .toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i')
+    .replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u')
+    .replace(/ş/g, 's')
+    .replace(/ö/g, 'o')
+    .replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function parsePriceNumber(value) {
+  const digits = String(value || '').replace(/[^\d]/g, '');
+  return digits ? parseInt(digits, 10) : 0;
+}
+
+function formatCurrency(value) {
+  return `${Number(value || 0).toLocaleString('tr-TR')} ₺`;
+}
+
+function cleanProductDescription(value) {
+  let result = String(value || '')
+    .replace(/\s*\d+\s*₺\s*Be later/gi, '')
+    .replace(/\bBe later\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  if (/\(\d+\s*pcs?$/i.test(result)) {
+    result += ')';
+  }
+
+  return result || 'Bu lezzet şeflerimiz tarafından günlük olarak hazırlanıyor.';
+}
+
+function getResolvedProductImage(product) {
+  let src = product && (product.localImage || product.image) ? (product.localImage || product.image) : '';
+  if (src && !/^https?:\/\//i.test(src) && !/^data:/i.test(src)) {
+    src = getMenuBaseUrl() + String(src).replace(/^\//, '');
+  }
+  return src;
+}
+
+function getProductMetaLabel(product) {
+  const source = `${product?.name || ''} ${cleanProductDescription(product?.description || '')}`;
+  const tokens = [];
+  const pcsMatch = source.match(/(\d+)\s*pc[s]?/i);
+  const cmMatch = source.match(/(\d+)\s*cm/i);
+  const mlMatch = source.match(/(\d+)\s*ml/i);
+  const gramMatch = source.match(/(\d+)\s*(gr|g)\b/i);
+
+  if (pcsMatch) tokens.push(`${pcsMatch[1]} parça`);
+  if (cmMatch) tokens.push(`${cmMatch[1]} cm`);
+  if (mlMatch) tokens.push(`${mlMatch[1]} ml`);
+  if (gramMatch) tokens.push(`${gramMatch[1]} gr`);
+  if (/sushi with|gunkan/i.test(source) && !tokens.some(token => token.includes('adet'))) tokens.push('1 adet');
+
+  if (!tokens.length) {
+    switch (product?.category) {
+      case 'setler':
+        tokens.push('Paylaşıma uygun');
+        break;
+      case 'pizza':
+        tokens.push('Taze fırın çıkışı');
+        break;
+      case 'corbalar':
+        tokens.push('Sıcak servis');
+        break;
+      case 'icecekler':
+        tokens.push('Soğuk servis');
+        break;
+      default:
+        tokens.push('1 porsiyon');
+        break;
+    }
+  }
+
+  return tokens.slice(0, 2).join(' · ');
+}
+
+function getProductModalAddons(product) {
+  if (!product || ['soslar', 'icecekler'].includes(product.category)) return [];
+  const source = window.menuProducts && window.menuProducts.length ? window.menuProducts : (getInlineMenuProducts() || []);
+  const byName = new Map(source.map(item => [normalizeProductLookup(item.name), item]));
+
+  return productModalAddonOrder
+    .map(key => byName.get(normalizeProductLookup(key)))
+    .filter(Boolean);
+}
+
+function findMenuProductById(productId) {
+  return (window.menuProducts || []).find(product => String(product.modalId) === String(productId)) || null;
+}
+
+function findMenuProductByName(name) {
+  const lookup = normalizeProductLookup(name);
+  return (window.menuProducts || []).find(product => normalizeProductLookup(product.name) === lookup) || null;
+}
+
+function renderProductModalOptions(product) {
+  const options = document.getElementById('productModalOptions');
+  const note = document.getElementById('productModalOptionNote');
+  if (!options || !note) return;
+
+  const addons = getProductModalAddons(product);
+  if (!addons.length) {
+    options.innerHTML = '';
+    note.textContent = 'Ekstra seçenek yok';
+    return;
+  }
+
+  note.textContent = 'İsteğe bağlı seçimler';
+  options.innerHTML = addons.map(addon => {
+    const addonKey = normalizeProductLookup(addon.name);
+    const addonLabel = productModalAddonLabels[addonKey] || addon.name;
+    const addonImage = getResolvedProductImage(addon);
+    const addonPrice = parsePriceNumber(addon.price);
+
+    return `
+      <button
+        class="product-modal-option"
+        type="button"
+        data-option-name="${escapeHtmlText(addonLabel)}"
+        data-option-price="${addonPrice}"
+        data-option-image="${escapeHtmlText(addonImage)}"
+        aria-pressed="false"
+      >
+        <span class="product-modal-option-check">✓</span>
+        <span class="product-modal-option-thumb">
+          ${addonImage
+            ? `<img src="${escapeHtmlText(addonImage)}" alt="${escapeHtmlText(addonLabel)}" loading="lazy" referrerpolicy="no-referrer">`
+            : `<div class="emoji-placeholder small">🍣</div>`}
+        </span>
+        <span class="product-modal-option-name">${escapeHtmlText(addonLabel)}</span>
+        <span class="product-modal-option-price">${formatCurrency(addonPrice)}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function updateProductModalTotal() {
+  if (!productModalState.product) return;
+  const totalEl = document.getElementById('productModalPrice');
+  const note = document.getElementById('productModalOptionNote');
+  const selectedOptions = [...document.querySelectorAll('.product-modal-option.selected')];
+  const basePrice = parsePriceNumber(productModalState.product.price);
+  const addonTotal = selectedOptions.reduce((sum, option) => sum + parsePriceNumber(option.dataset.optionPrice), 0);
+  const total = basePrice + addonTotal;
+
+  if (totalEl) totalEl.textContent = formatCurrency(total);
+
+  if (note) {
+    note.textContent = selectedOptions.length
+      ? `${selectedOptions.length} ekstra seçildi`
+      : (document.querySelectorAll('.product-modal-option').length ? 'İsteğe bağlı seçimler' : 'Ekstra seçenek yok');
+  }
+}
+
+function openProductModal(product, trigger) {
+  if (!product) return;
+
+  const overlay = document.getElementById('productModalOverlay');
+  const imageEl = document.getElementById('productModalImage');
+  const categoryEl = document.getElementById('productModalCategory');
+  const titleEl = document.getElementById('productModalTitle');
+  const descEl = document.getElementById('productModalDesc');
+  const metaEl = document.getElementById('productModalMeta');
+  if (!overlay || !imageEl || !categoryEl || !titleEl || !descEl || !metaEl) return;
+
+  productModalState.product = product;
+  productModalState.trigger = trigger || document.activeElement;
+
+  const imageSrc = getResolvedProductImage(product);
+  imageEl.innerHTML = imageSrc
+    ? `<img src="${escapeHtmlText(imageSrc)}" alt="${escapeHtmlText(product.name)}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'emoji-placeholder\\'>🍣</div>';">`
+    : `<div class="emoji-placeholder">🍣</div>`;
+
+  categoryEl.textContent = getMenuCategoryLabel(product.category);
+  titleEl.textContent = product.name || 'Ürün detayı';
+  descEl.textContent = cleanProductDescription(product.description);
+  metaEl.textContent = getProductMetaLabel(product);
+
+  renderProductModalOptions(product);
+  updateProductModalTotal();
+
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  syncBodyScrollState();
+  document.getElementById('productModalClose')?.focus();
+}
+
+function openProductModalById(productId, trigger) {
+  openProductModal(findMenuProductById(productId), trigger);
+}
+
+function openProductModalByName(name, trigger) {
+  openProductModal(findMenuProductByName(name), trigger);
+}
+
+function closeProductModal() {
+  const overlay = document.getElementById('productModalOverlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
+
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  syncBodyScrollState();
+
+  const trigger = productModalState.trigger;
+  productModalState.product = null;
+  productModalState.trigger = null;
+  trigger?.focus?.();
+}
+
+function addProductModalSelectionToCart() {
+  if (!productModalState.product) return;
+
+  const product = productModalState.product;
+  const productImage = getResolvedProductImage(product);
+  const basePrice = parsePriceNumber(product.price);
+  const selectedOptions = [...document.querySelectorAll('.product-modal-option.selected')].map(option => ({
+    name: option.dataset.optionName || '',
+    price: parsePriceNumber(option.dataset.optionPrice)
+  }));
+  const addonTotal = selectedOptions.reduce((sum, option) => sum + option.price, 0);
+  const itemName = selectedOptions.length
+    ? `${product.name} + ${selectedOptions.map(option => option.name).join(', ')}`
+    : product.name;
+
+  addToCart(itemName, basePrice + addonTotal, '🍣', productImage);
+  closeProductModal();
+  showToast(selectedOptions.length ? 'Ürün seçenekleriyle birlikte sepete eklendi.' : 'Ürün sepete eklendi.');
+}
+
+function initializeMenuProducts(rawProducts) {
+  const container = document.getElementById('productsFromJson');
+  if (!container) return;
+  if (!Array.isArray(rawProducts) || rawProducts.length === 0) {
+    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Ürün bulunamadı.</div>';
+    return;
+  }
+  window.menuProducts = rawProducts.map((p, index) => ({ ...p, category: getProductCategory(p), modalId: `menu-${index}` }));
+  renderMenuProducts(window.currentMenuCategory || 'vejeterian');
+}
+
+var menuBaseUrl = '';
+function getMenuBaseUrl() {
+  if (menuBaseUrl) return menuBaseUrl;
+  if (location.href.startsWith('file:')) menuBaseUrl = location.href.replace(/[#?].*$/, '').replace(/\/[^/]*$/, '/');
+  else menuBaseUrl = location.origin + ((location.pathname || '').replace(/\/[^/]*$/, '/') || '/');
+  return menuBaseUrl;
+}
+
+function renderMenuProducts(categoryFilter) {
+  const container = document.getElementById('productsFromJson');
+  if (!container || !window.menuProducts) return;
+  const title = document.getElementById('menuSectionTitle');
+  if (title) title.textContent = getMenuCategoryLabel(categoryFilter);
+  const products = categoryFilter === 'all' ? window.menuProducts : window.menuProducts.filter(p => p.category === categoryFilter);
+  const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const escJs = s => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  if (products.length === 0) {
+    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Bu kategoride ürün yok.</div>';
+    return;
+  }
+  container.innerHTML = products.map(p => {
+    const priceStr = String(p.price || '').replace(/^0+(\d)/, '$1');
+    const priceNum = parsePriceNumber(priceStr);
+    const imgSrc = getResolvedProductImage(p);
+    const imgHtml = imgSrc
+      ? `<img src="${esc(imgSrc)}" alt="${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'emoji-placeholder\\'>🍣</div>';">`
+      : '<div class="emoji-placeholder">🍣</div>';
+    const nameEsc = escJs(p.name);
+    const imgEsc = escJs(imgSrc || '');
+    const desc = esc(cleanProductDescription(p.description));
+    return `<div class="product-card" data-product-id="${esc(p.modalId)}" tabindex="0" role="button" aria-label="${esc(`${p.name} detaylarini ac`)}">
+          <div class="product-img">${imgHtml}</div>
+          <div class="product-body">
+            <div class="product-name">${esc(p.name)}</div>
+            ${desc ? `<div class="product-desc">${desc}</div>` : ''}
+          </div>
+          <div class="product-footer">
+            <div class="product-price">${esc(priceStr || p.price)}</div>
+            <button class="btn-add" type="button" onclick="event.stopPropagation();addToCart('${nameEsc}', ${priceNum}, '🍣', '${imgEsc}')">Eklemek</button>
+          </div>
+        </div>`;
+  }).join('');
+}
+
+function getInlineMenuProducts() {
+  const el = document.getElementById('menuProductsData');
+  if (!el) return null;
+  try {
+    return JSON.parse(el.textContent);
+  } catch {
+    return null;
+  }
+}
+
+(function loadProductsFromJson() {
+  const container = document.getElementById('productsFromJson');
+  if (!container) return;
+  const inlineProducts = getInlineMenuProducts();
+  if (location.href.startsWith('file:') && inlineProducts && inlineProducts.length) {
+    initializeMenuProducts(inlineProducts);
+    return;
+  }
+  fetch('products.json')
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('products.json yüklenemedi')))
+    .then(data => initializeMenuProducts(data.products || []))
+    .catch(() => {
+      if (inlineProducts && inlineProducts.length) {
+        initializeMenuProducts(inlineProducts);
+        return;
+      }
+      container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Ürünler yüklenemedi. products.json dosyasının mevcut olduğundan emin olun.</div>';
+    });
+})();
+
+const productGrid = document.getElementById('productsFromJson');
+if (productGrid && !productGrid.dataset.modalBound) {
+  productGrid.dataset.modalBound = 'true';
+
+  productGrid.addEventListener('click', (event) => {
+    if (event.target.closest('.btn-add')) return;
+    const card = event.target.closest('.product-card[data-product-id]');
+    if (!card) return;
+    openProductModalById(card.dataset.productId, card);
+  });
+
+  productGrid.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.product-card[data-product-id]');
+    if (!card || event.target.closest('button')) return;
+    event.preventDefault();
+    openProductModalById(card.dataset.productId, card);
+  });
+}
+
+document.querySelectorAll('.popular-item[data-product-name]').forEach(item => {
+  item.addEventListener('click', () => openProductModalByName(item.dataset.productName, item));
+  item.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openProductModalByName(item.dataset.productName, item);
+  });
+});
+
+document.getElementById('productModalOptions')?.addEventListener('click', (event) => {
+  const option = event.target.closest('.product-modal-option');
+  if (!option) return;
+  option.classList.toggle('selected');
+  option.setAttribute('aria-pressed', option.classList.contains('selected') ? 'true' : 'false');
+  updateProductModalTotal();
+});
+
+document.getElementById('productModalAddBtn')?.addEventListener('click', addProductModalSelectionToCart);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+
+  if (document.getElementById('serviceMapOverlay')?.classList.contains('open')) {
+    closeServiceMapModal();
+    return;
+  }
+
+  if (document.getElementById('productModalOverlay')?.classList.contains('open')) {
+    closeProductModal();
+    return;
+  }
+
+  if (document.getElementById('mobileSearchOverlay')?.classList.contains('open')) {
+    closeMobileSearch();
+    return;
+  }
+
+  if (document.getElementById('mobileCartOverlay')?.classList.contains('open')) {
+    closeMobileCart();
+  }
+});
+
+window.currentMenuCategory = 'vejeterian';
+document.querySelectorAll('.cat-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    const category = this.dataset.category || 'all';
+    window.currentMenuCategory = category;
+    renderMenuProducts(category);
+    const target = document.getElementById(this.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Delivery toggle
+document.querySelectorAll('.delivery-toggle button, .receipt-toggle button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Scroll to top button
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+// Highlight active category on scroll
+const sections = document.querySelectorAll('.category-section');
+const tabs = document.querySelectorAll('.cat-tab');
+const sectionLinkedTabs = [...tabs].filter(tab => !tab.dataset.category);
+
+if (sectionLinkedTabs.length) {
+  const observerOptions = {
+    root: null,
+    rootMargin: '-120px 0px -60% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        sectionLinkedTabs.forEach(tab => {
+          tab.classList.toggle('active', tab.dataset.target === id);
+        });
+        const activeTab = document.querySelector(`.cat-tab[data-target="${id}"]`);
+        if (activeTab) {
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+}
+
+// Showcase sliders
+function getSliderStep(viewport, items) {
+  if (!items.length) return viewport.clientWidth || 1;
+  if (items.length === 1) return items[0].offsetWidth || viewport.clientWidth || 1;
+  const delta = items[1].offsetLeft - items[0].offsetLeft;
+  return delta > 0 ? delta : items[0].offsetWidth || viewport.clientWidth || 1;
+}
+
+function updateShowcaseSlider(slider) {
+  const viewport = slider.querySelector('[data-slider-viewport]');
+  const track = slider.querySelector('[data-slider-track]');
+  const prev = slider.querySelector('[data-slider-prev]');
+  const next = slider.querySelector('[data-slider-next]');
+  const progress = slider.querySelector('.slider-progress span');
+  const counter = slider.querySelector('[data-slider-counter]');
+  const items = track ? [...track.children] : [];
+  if (!viewport || !track || !items.length) return;
+
+  const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+  const step = Math.max(1, getSliderStep(viewport, items));
+  const activeIndex = Math.min(items.length, Math.round(viewport.scrollLeft / step) + 1);
+  const thumbWidth = maxScroll <= 0 ? 100 : Math.max(18, (viewport.clientWidth / viewport.scrollWidth) * 100);
+  const thumbTravel = Math.max(0, 100 - thumbWidth);
+  const thumbOffset = maxScroll <= 0 ? 0 : (viewport.scrollLeft / maxScroll) * thumbTravel;
+
+  if (progress) {
+    progress.style.width = `${thumbWidth}%`;
+    progress.style.transform = `translateX(${thumbOffset}%)`;
+  }
+
+  if (counter) {
+    counter.textContent = `${String(activeIndex).padStart(2, '0')}/${String(items.length).padStart(2, '0')}`;
+  }
+
+  if (prev) prev.disabled = viewport.scrollLeft <= 4;
+  if (next) next.disabled = viewport.scrollLeft >= maxScroll - 4;
+  slider.classList.toggle('is-static', maxScroll <= 4);
+}
+
+function setupShowcaseSlider(slider) {
+  const viewport = slider.querySelector('[data-slider-viewport]');
+  const track = slider.querySelector('[data-slider-track]');
+  const prev = slider.querySelector('[data-slider-prev]');
+  const next = slider.querySelector('[data-slider-next]');
+  const items = track ? [...track.children] : [];
+  if (!viewport || !track || !items.length) return;
+
+  const scrollByStep = (direction) => {
+    const step = Math.max(getSliderStep(viewport, items), viewport.clientWidth * 0.82);
+    viewport.scrollBy({ left: direction * step, behavior: 'smooth' });
+  };
+
+  prev?.addEventListener('click', () => scrollByStep(-1));
+  next?.addEventListener('click', () => scrollByStep(1));
+  viewport.addEventListener('scroll', () => updateShowcaseSlider(slider), { passive: true });
+
+  let pointerId = null;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+
+  const stopDragging = (event) => {
+    if (pointerId === null) return;
+    if (event && event.pointerId !== pointerId) return;
+    pointerId = null;
+    viewport.classList.remove('is-dragging');
+  };
+
+  viewport.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartScroll = viewport.scrollLeft;
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture?.(pointerId);
+  });
+
+  viewport.addEventListener('pointermove', (event) => {
+    if (pointerId === null || event.pointerId !== pointerId) return;
+    const delta = event.clientX - dragStartX;
+    viewport.scrollLeft = dragStartScroll - delta;
+  });
+
+  viewport.addEventListener('pointerup', stopDragging);
+  viewport.addEventListener('pointercancel', stopDragging);
+  viewport.addEventListener('lostpointercapture', stopDragging);
+
+  if ('ResizeObserver' in window) {
+    const resizeObserver = new ResizeObserver(() => updateShowcaseSlider(slider));
+    resizeObserver.observe(viewport);
+    resizeObserver.observe(track);
+  } else {
+    window.addEventListener('resize', () => updateShowcaseSlider(slider));
+  }
+
+  updateShowcaseSlider(slider);
+}
+
+document.querySelectorAll('[data-slider-section]').forEach(setupShowcaseSlider);
+
+// ===== MOBILE NAVIGATION & SEARCH =====
+
+// Bottom Navigation
+function scrollToSection(id) {
+  const target = document.getElementById(id);
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function goToSection(section) {
+  // Update active state
+  document.querySelectorAll('.bottom-item').forEach(item => item.classList.remove('active'));
+  document.getElementById('nav-' + section)?.classList.add('active');
+  
+  switch(section) {
+    case 'info':
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      break;
+    case 'promotions':
+      scrollToSection('promotionsSection');
+      break;
+    case 'menu':
+      scrollToSection('categoryTabs');
+      break;
+    case 'orders':
+      showToast('Sipariş takibi yakında geliyor!');
+      break;
+    case 'cart':
+      openMobileCart();
+      break;
+  }
+}
+
+// Mobile Search Functions
+function openMobileSearch() {
+  const overlay = document.getElementById('mobileSearchOverlay');
+  overlay.classList.add('open');
+  syncBodyScrollState();
+  setTimeout(() => {
+    document.getElementById('mobileSearchInput').focus();
+  }, 100);
+}
+
+function closeMobileSearch() {
+  document.getElementById('mobileSearchOverlay').classList.remove('open');
+  syncBodyScrollState();
+  clearMobileSearch();
+}
+
+function clearMobileSearch() {
+  const input = document.getElementById('mobileSearchInput');
+  input.value = '';
+  document.querySelector('.mobile-search-clear').style.display = 'none';
+  document.getElementById('mobileSearchResults').innerHTML = '';
+  document.querySelector('.mobile-search-suggestions').style.display = 'block';
+}
+
+function quickSearch(term) {
+  const input = document.getElementById('mobileSearchInput');
+  input.value = term;
+  performSearch(term);
+}
+
+// Arama: menü yüklendikten sonra window.menuProducts kullanılır
+function getSearchableProducts() {
+  if (window.menuProducts && window.menuProducts.length) return window.menuProducts.map(p => ({ name: p.name, price: p.price, category: p.category }));
+  return [];
+}
+
+function performSearch(query) {
+  if (!query.trim()) {
+    document.getElementById('mobileSearchResults').innerHTML = '';
+    document.querySelector('.mobile-search-suggestions').style.display = 'block';
+    return;
+  }
+  document.querySelector('.mobile-search-suggestions').style.display = 'none';
+  const list = getSearchableProducts();
+  const q = query.toLowerCase();
+  const results = list.filter(p => (p.name || '').toLowerCase().includes(q));
+  const resultsContainer = document.getElementById('mobileSearchResults');
+  if (results.length === 0) {
+    resultsContainer.innerHTML = `
+      <div class="search-no-results">
+        <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
+        <div style="font-weight: 700; color: var(--dark); margin-bottom: 4px;">Sonuç bulunamadı</div>
+        <div style="font-size: 14px;">"${query}" için sonuç bulunamadı</div>
+      </div>`;
+  } else {
+    resultsContainer.innerHTML = results.map(p => {
+      const cat = (p.category || 'all').replace(/'/g, "\\'");
+      const name = (p.name || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const price = (p.price || '').replace(/</g, '&lt;');
+      return `<div class="search-result-item" onclick="closeMobileSearch(); goToMenuCategory('${cat}')">
+        <div class="result-img">🍣</div>
+        <div class="result-info">
+          <div class="result-name">${name}</div>
+          <div class="result-price">${price}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function goToMenuCategory(cat) {
+  window.currentMenuCategory = cat || 'all';
+  var t = document.querySelector('.cat-tab[data-category="' + (cat || 'all') + '"]');
+  if (t) t.click();
+}
+
+const SERVICE_SELECTION_STORAGE_KEY = 'sushiSeaServiceSelection';
+const SERVICE_MAP_DEFAULT_CENTER = [32.173, 36.548];
+const SERVICE_MAP_BOUNDS = [[31.92, 36.44], [32.5, 36.64]];
+const SERVICE_ZONES = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      properties: {
+        id: 'merkez-express',
+        name: 'Alanya Merkez',
+        badge: 'Merkez',
+        eta: '20-30 dk',
+        coverage: 'Damlatas, Çarşı ve Cumhuriyet hattı',
+        description: 'Merkez çizgisinde en hızlı teslimat akışını burada tutuyoruz.',
+        fill: '#ffd56f',
+        outline: '#f0bc31'
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [31.955, 36.538],
+          [32.02, 36.524],
+          [32.094, 36.519],
+          [32.152, 36.528],
+          [32.159, 36.555],
+          [32.128, 36.582],
+          [32.056, 36.589],
+          [31.984, 36.576],
+          [31.955, 36.538]
+        ]]
+      }
+    },
+    {
+      type: 'Feature',
+      properties: {
+        id: 'oba-tosmur',
+        name: 'Oba ve Tosmur',
+        badge: 'Oba',
+        eta: '25-35 dk',
+        coverage: 'Oba çevreyolu, Tosmur ve sahil aksı',
+        description: 'Yoğun sipariş ritmine uygun ikinci canlı teslimat bölgemiz.',
+        fill: '#9de6a7',
+        outline: '#5ac36b'
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [32.126, 36.503],
+          [32.183, 36.498],
+          [32.266, 36.511],
+          [32.279, 36.541],
+          [32.244, 36.569],
+          [32.171, 36.567],
+          [32.13, 36.544],
+          [32.126, 36.503]
+        ]]
+      }
+    },
+    {
+      type: 'Feature',
+      properties: {
+        id: 'kestel-line',
+        name: 'Kestel Sahil Hattı',
+        badge: 'Kestel',
+        eta: '35-45 dk',
+        coverage: 'Kestel sahili ve kampüs çevresi',
+        description: 'Daha uzun parkur ama stabil sıcak teslimat temposu bu bölgede.',
+        fill: '#7eaefc',
+        outline: '#4b86f5'
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [32.252, 36.477],
+          [32.315, 36.472],
+          [32.388, 36.49],
+          [32.397, 36.521],
+          [32.359, 36.548],
+          [32.287, 36.548],
+          [32.25, 36.524],
+          [32.252, 36.477]
+        ]]
+      }
+    },
+    {
+      type: 'Feature',
+      properties: {
+        id: 'mahmutlar-route',
+        name: 'Mahmutlar Hattı',
+        badge: 'Mahmutlar',
+        eta: '45-55 dk',
+        coverage: 'Doğudaki sahil uzantısı ve yoğun akslar',
+        description: 'Uzak bölge için ayrılmış teslimat slotları ile çalışır.',
+        fill: '#ff9ca1',
+        outline: '#f36c74'
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [32.38, 36.456],
+          [32.433, 36.454],
+          [32.46, 36.473],
+          [32.449, 36.5],
+          [32.404, 36.508],
+          [32.378, 36.489],
+          [32.38, 36.456]
+        ]]
+      }
+    }
+  ]
+};
+
+const serviceMapState = {
+  initialized: false,
+  map: null,
+  marker: null,
+  popup: null,
+  labelMarkers: [],
+  selectedZoneId: null,
+  selectedPoint: null,
+  selectedAddress: '',
+  geocodeController: null,
+  trigger: null
+};
+
+function safeLocalStorageGet(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeLocalStorageSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {}
+}
+
+function getSavedServiceSelection() {
+  const raw = safeLocalStorageGet(SERVICE_SELECTION_STORAGE_KEY);
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && parsed.zoneId && getServiceZoneById(parsed.zoneId) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function getServiceZones() {
+  return SERVICE_ZONES.features || [];
+}
+
+function getServiceZoneById(zoneId) {
+  return getServiceZones().find(feature => feature.properties?.id === zoneId) || null;
+}
+
+function getServiceZoneCenter(feature) {
+  try {
+    return turf.centerOfMass(feature).geometry.coordinates;
+  } catch {
+    const firstRing = feature?.geometry?.coordinates?.[0] || [];
+    return firstRing[Math.floor(firstRing.length / 2)] || SERVICE_MAP_DEFAULT_CENTER;
+  }
+}
+
+function truncateServiceLabel(value, maxLength = 28) {
+  const text = String(value || '').trim();
+  if (!text) return 'Adres seç';
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
+}
+
+function formatServiceFallbackAddress(zone, point) {
+  const [lng, lat] = point || SERVICE_MAP_DEFAULT_CENTER;
+  return `${zone.properties.name} · ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+}
+
+function formatReverseAddress(data, zone, point) {
+  const address = data?.address || {};
+  const area =
+    address.suburb ||
+    address.neighbourhood ||
+    address.quarter ||
+    address.city_district ||
+    address.town ||
+    address.village ||
+    zone?.properties?.badge ||
+    zone?.properties?.name ||
+    'Alanya';
+  const road =
+    address.road ||
+    address.pedestrian ||
+    address.residential ||
+    address.footway ||
+    address.path ||
+    address.amenity ||
+    '';
+  const houseNumber = address.house_number ? ` ${address.house_number}` : '';
+  const parts = [];
+
+  if (area) parts.push(area);
+  if (road) parts.push(`${road}${houseNumber}`);
+
+  if (!parts.length && data?.display_name) {
+    parts.push(...String(data.display_name).split(',').map(part => part.trim()).filter(Boolean).slice(0, 2));
+  }
+
+  const full = parts.join(' · ') || formatServiceFallbackAddress(zone, point);
+  return {
+    full,
+    compact: truncateServiceLabel(full),
+    resolved: Boolean(road || data?.display_name)
+  };
+}
+
+async function reverseGeocodeServicePoint(lng, lat, zone) {
+  const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+
+  if (serviceMapState.geocodeController) {
+    serviceMapState.geocodeController.abort();
+  }
+
+  serviceMapState.geocodeController = controller;
+
+  try {
+    const url = new URL('https://nominatim.openstreetmap.org/reverse');
+    url.searchParams.set('format', 'jsonv2');
+    url.searchParams.set('lat', String(lat));
+    url.searchParams.set('lon', String(lng));
+    url.searchParams.set('zoom', '18');
+    url.searchParams.set('addressdetails', '1');
+    url.searchParams.set('accept-language', 'tr');
+
+    const response = await fetch(url.toString(), {
+      signal: controller?.signal
+    });
+
+    if (!response.ok) {
+      throw new Error('reverse geocode failed');
+    }
+
+    const data = await response.json();
+    if (serviceMapState.geocodeController !== controller) return null;
+    return formatReverseAddress(data, zone, [lng, lat]);
+  } catch (error) {
+    if (error?.name === 'AbortError') return null;
+
+    const fallback = formatServiceFallbackAddress(zone, [lng, lat]);
+    return {
+      full: fallback,
+      compact: truncateServiceLabel(fallback),
+      resolved: false
+    };
+  } finally {
+    if (serviceMapState.geocodeController === controller) {
+      serviceMapState.geocodeController = null;
+    }
+  }
+}
+
+function getServiceAddressInputValue() {
+  return document.getElementById('serviceMapAddressInput')?.value.trim() || '';
+}
+
+function setServiceMapStatus(message, tone = 'info') {
+  const status = document.getElementById('serviceMapStatus');
+  if (!status) return;
+
+  status.className = 'service-map-status';
+  if (tone === 'success') status.classList.add('is-success');
+  if (tone === 'error') status.classList.add('is-error');
+  status.textContent = message;
+}
+
+function updateServiceZoneCard(zone, options = {}) {
+  const pill = document.getElementById('serviceZonePill');
+  const name = document.getElementById('serviceZoneName');
+  const text = document.getElementById('serviceZoneText');
+  const eta = document.getElementById('serviceZoneEta');
+  const coverage = document.getElementById('serviceZoneCoverage');
+  if (!pill || !name || !text || !eta || !coverage) return;
+
+  if (!zone) {
+    pill.textContent = 'Adres bekleniyor';
+    name.textContent = 'Henüz bir servis noktası seçilmedi';
+    text.textContent = 'Renkli alanlardan birine tıklayınca seçilen bölge, tahmini süre ve adres burada görünecek.';
+    eta.textContent = 'Tahmini süre: -';
+    coverage.textContent = 'Bölge: -';
+    return;
+  }
+
+  const addressLine = String(options.addressLine || serviceMapState.selectedAddress || '').trim();
+  pill.textContent = zone.properties.badge;
+  name.textContent = zone.properties.name;
+  text.textContent = addressLine
+    ? `${zone.properties.description} Seçilen nokta: ${addressLine}.`
+    : `${zone.properties.description} Harita üzerinden net noktayı seçerek mahalle ve cadde bilgisini doldur.`;
+  eta.textContent = `Tahmini süre: ${zone.properties.eta}`;
+  coverage.textContent = `Bölge: ${zone.properties.coverage}`;
+}
+
+function renderServiceMapLegend() {
+  const legend = document.getElementById('serviceMapLegend');
+  if (!legend) return;
+
+  legend.innerHTML = getServiceZones().map(zone => `
+    <button
+      class="service-map-legend-btn${serviceMapState.selectedZoneId === zone.properties.id ? ' active' : ''}"
+      type="button"
+      data-zone-id="${escapeHtmlText(zone.properties.id)}"
+    >
+      <span class="service-map-legend-dot" style="background:${escapeHtmlText(zone.properties.fill)}"></span>
+      <span class="service-map-legend-body">
+        <strong>${escapeHtmlText(zone.properties.name)}</strong>
+        <span>${escapeHtmlText(zone.properties.coverage)}</span>
+        <small>${escapeHtmlText(zone.properties.eta)}</small>
+      </span>
+    </button>
+  `).join('');
+}
+
+function updateServiceMapActiveLayer() {
+  const map = serviceMapState.map;
+  if (!map || !map.getLayer('service-zones-active')) return;
+  map.setFilter('service-zones-active', ['==', ['get', 'id'], serviceMapState.selectedZoneId || '__none__']);
+}
+
+function clearServiceMarker() {
+  if (serviceMapState.marker) {
+    serviceMapState.marker.remove();
+  }
+}
+
+function setServiceMarker(point) {
+  const map = serviceMapState.map;
+  if (!map || !point) return;
+
+  if (!serviceMapState.marker) {
+    const markerEl = document.createElement('div');
+    markerEl.className = 'service-map-marker';
+    serviceMapState.marker = new maplibregl.Marker({
+      element: markerEl,
+      anchor: 'bottom'
+    });
+  }
+
+  serviceMapState.marker.setLngLat(point).addTo(map);
+}
+
+function renderServiceZoneLabels() {
+  const map = serviceMapState.map;
+  if (!map) return;
+
+  serviceMapState.labelMarkers.forEach(marker => marker.remove());
+  serviceMapState.labelMarkers = getServiceZones().map(zone => {
+    const labelEl = document.createElement('div');
+    labelEl.className = 'service-zone-label';
+    labelEl.style.setProperty('--zone-color', zone.properties.fill);
+    labelEl.innerHTML = `<span>${escapeHtmlText(zone.properties.badge)}</span>`;
+
+    return new maplibregl.Marker({
+      element: labelEl,
+      anchor: 'center'
+    })
+      .setLngLat(getServiceZoneCenter(zone))
+      .addTo(map);
+  });
+}
+
+function showServiceZonePopup(feature, lngLat) {
+  const map = serviceMapState.map;
+  if (!map || !feature) return;
+
+  if (!serviceMapState.popup) {
+    serviceMapState.popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 18
+    });
+  }
+
+  serviceMapState.popup
+    .setLngLat(lngLat)
+    .setHTML(`
+      <div class="service-map-popup">
+        <strong>${escapeHtmlText(feature.properties.name)}</strong>
+        <span>${escapeHtmlText(feature.properties.coverage)}</span>
+        <small>${escapeHtmlText(feature.properties.eta)} ortalama teslimat</small>
+      </div>
+    `)
+    .addTo(map);
+}
+
+function hideServiceZonePopup() {
+  serviceMapState.popup?.remove();
+}
+
+function updateServiceConfirmState() {
+  const confirmBtn = document.getElementById('serviceMapConfirmBtn');
+  if (!confirmBtn) return;
+  confirmBtn.disabled = !(serviceMapState.selectedZoneId && getServiceAddressInputValue());
+}
+
+function syncBodyScrollState() {
+  const isLocked =
+    document.getElementById('serviceMapOverlay')?.classList.contains('open') ||
+    document.getElementById('productModalOverlay')?.classList.contains('open') ||
+    document.getElementById('mobileSearchOverlay')?.classList.contains('open') ||
+    document.getElementById('mobileCartOverlay')?.classList.contains('open') ||
+    document.getElementById('mobileCartPanel')?.classList.contains('open');
+
+  document.body.style.overflow = isLocked ? 'hidden' : '';
+}
+
+function applyServiceSelectionToUI(selection, options = {}) {
+  const desktopLabel = document.getElementById('desktopAddressLabel');
+  const mobileLabel = document.getElementById('mobileAddressLabel');
+  const desktopTrigger = desktopLabel?.closest('.address-select');
+  const mobileTrigger = mobileLabel?.closest('.mobile-address-pill');
+  const hasSelection = Boolean(selection?.zoneId);
+  const displayLabel = hasSelection
+    ? truncateServiceLabel(selection.shortLabel || selection.fullAddress || selection.zoneName)
+    : 'Adres seç';
+
+  if (desktopLabel) desktopLabel.textContent = displayLabel;
+  if (mobileLabel) mobileLabel.textContent = displayLabel;
+
+  [desktopTrigger, mobileTrigger].forEach(trigger => {
+    if (!trigger) return;
+    trigger.classList.toggle('is-selected', hasSelection);
+    trigger.title = hasSelection ? (selection.fullAddress || selection.zoneName || 'Adres seçildi') : 'Adres seç';
+  });
+
+  if (!hasSelection) {
+    serviceMapState.selectedZoneId = null;
+    serviceMapState.selectedPoint = null;
+    serviceMapState.selectedAddress = '';
+    const addressInput = document.getElementById('serviceMapAddressInput');
+    if (addressInput) addressInput.value = '';
+    clearServiceMarker();
+    updateServiceZoneCard(null);
+    renderServiceMapLegend();
+    updateServiceMapActiveLayer();
+    updateServiceConfirmState();
+    return;
+  }
+
+  serviceMapState.selectedZoneId = selection.zoneId;
+  serviceMapState.selectedAddress = selection.fullAddress || '';
+  serviceMapState.selectedPoint = selection.point ? [selection.point.lng, selection.point.lat] : null;
+
+  const addressInput = document.getElementById('serviceMapAddressInput');
+  if (addressInput && !options.preserveInput) {
+    addressInput.value = selection.fullAddress || '';
+  }
+
+  const zone = getServiceZoneById(selection.zoneId);
+  updateServiceZoneCard(zone, { addressLine: selection.fullAddress });
+  renderServiceMapLegend();
+  updateServiceMapActiveLayer();
+  updateServiceConfirmState();
+
+  if (options.persist !== false) {
+    safeLocalStorageSet(SERVICE_SELECTION_STORAGE_KEY, JSON.stringify(selection));
+  }
+
+  if (options.syncMap && serviceMapState.map && zone) {
+    if (serviceMapState.selectedPoint) {
+      setServiceMarker(serviceMapState.selectedPoint);
+    }
+    if (options.flyTo) {
+      serviceMapState.map.flyTo({
+        center: serviceMapState.selectedPoint || getServiceZoneCenter(zone),
+        zoom: 13.1,
+        essential: true
+      });
+    }
+  }
+}
+
+function focusServiceZoneById(zoneId) {
+  const zone = getServiceZoneById(zoneId);
+  if (!zone) return;
+
+  const previousZoneId = serviceMapState.selectedZoneId;
+  const addressInput = document.getElementById('serviceMapAddressInput');
+
+  serviceMapState.selectedZoneId = zone.properties.id;
+
+  if (previousZoneId !== zone.properties.id) {
+    serviceMapState.selectedPoint = null;
+    serviceMapState.selectedAddress = '';
+    clearServiceMarker();
+    if (addressInput) addressInput.value = '';
+  }
+
+  updateServiceZoneCard(zone);
+  renderServiceMapLegend();
+  updateServiceMapActiveLayer();
+  updateServiceConfirmState();
+  setServiceMapStatus(`${zone.properties.name} odağa alındı. Şimdi bu bölgenin içinde bir noktaya tıkla.`, 'info');
+
+  if (serviceMapState.map) {
+    serviceMapState.map.flyTo({
+      center: getServiceZoneCenter(zone),
+      zoom: 13,
+      speed: 0.7,
+      essential: true
+    });
+  }
+}
+
+async function handleServiceMapClick(lngLat) {
+  if (!window.turf) return;
+
+  const point = turf.point([lngLat.lng, lngLat.lat]);
+  const zone = getServiceZones().find(feature => turf.booleanPointInPolygon(point, feature));
+
+  if (!zone) {
+    setServiceMapStatus('Bu nokta aktif teslimat bölgelerimizin dışında kalıyor. Lütfen renkli alanlardan birini seç.', 'error');
+    return;
+  }
+
+  serviceMapState.selectedZoneId = zone.properties.id;
+  serviceMapState.selectedPoint = [lngLat.lng, lngLat.lat];
+  serviceMapState.selectedAddress = '';
+  setServiceMarker(serviceMapState.selectedPoint);
+  updateServiceZoneCard(zone);
+  renderServiceMapLegend();
+  updateServiceMapActiveLayer();
+  updateServiceConfirmState();
+  setServiceMapStatus(`${zone.properties.name} içinde bir nokta seçildi. Mahalle ve cadde bilgisi getiriliyor...`, 'info');
+
+  const addressInput = document.getElementById('serviceMapAddressInput');
+  if (addressInput) addressInput.value = '';
+
+  const resolvedAddress = await reverseGeocodeServicePoint(lngLat.lng, lngLat.lat, zone);
+  if (!resolvedAddress) return;
+
+  serviceMapState.selectedAddress = resolvedAddress.full;
+  if (addressInput) addressInput.value = resolvedAddress.full;
+  updateServiceZoneCard(zone, { addressLine: resolvedAddress.full });
+  updateServiceConfirmState();
+
+  setServiceMapStatus(
+    resolvedAddress.resolved
+      ? `${zone.properties.name} için adres eşleştirildi. Onaylarsan bu noktaya teslimat yapabiliriz.`
+      : `${zone.properties.name} seçildi. Tam cadde bilgisi alınamadı; genel bölge etiketi dolduruldu.`,
+    resolvedAddress.resolved ? 'success' : 'info'
+  );
+}
+
+function confirmServiceAddressSelection() {
+  const zone = getServiceZoneById(serviceMapState.selectedZoneId);
+  const addressLine = getServiceAddressInputValue();
+  if (!zone || !addressLine) {
+    updateServiceConfirmState();
+    return;
+  }
+
+  const point = serviceMapState.selectedPoint || getServiceZoneCenter(zone);
+  const selection = {
+    zoneId: zone.properties.id,
+    zoneName: zone.properties.name,
+    fullAddress: addressLine,
+    shortLabel: truncateServiceLabel(addressLine),
+    coverage: zone.properties.coverage,
+    eta: zone.properties.eta,
+    point: {
+      lng: Number(point[0].toFixed(6)),
+      lat: Number(point[1].toFixed(6))
+    }
+  };
+
+  applyServiceSelectionToUI(selection, {
+    persist: true,
+    syncMap: true
+  });
+
+  closeServiceMapModal();
+  showToast(`${selection.shortLabel} aktif teslimat adresi olarak kaydedildi.`);
+}
+
+function ensureServiceMap() {
+  if (serviceMapState.initialized) {
+    serviceMapState.map?.resize();
+    renderServiceMapLegend();
+    updateServiceMapActiveLayer();
+    return;
+  }
+
+  if (!window.maplibregl || !window.turf) {
+    setServiceMapStatus('Harita kütüphanesi yüklenemedi. Lütfen sayfayı yenileyin.', 'error');
+    return;
+  }
+
+  serviceMapState.initialized = true;
+
+  serviceMapState.map = new maplibregl.Map({
+    container: 'serviceMap',
+    center: SERVICE_MAP_DEFAULT_CENTER,
+    zoom: 12.35,
+    minZoom: 11.2,
+    maxZoom: 16.5,
+    maxBounds: SERVICE_MAP_BOUNDS,
+    renderWorldCopies: false,
+    antialias: true,
+    style: {
+      version: 8,
+      sources: {
+        osm: {
+          type: 'raster',
+          tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          tileSize: 256,
+          attribution: '&copy; OpenStreetMap contributors'
+        }
+      },
+      layers: [
+        {
+          id: 'osm',
+          type: 'raster',
+          source: 'osm'
+        }
+      ]
+    }
+  });
+
+  serviceMapState.map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+  if (maplibregl.GeolocateControl) {
+    serviceMapState.map.addControl(new maplibregl.GeolocateControl({
+      positionOptions: { enableHighAccuracy: true },
+      showUserLocation: true,
+      trackUserLocation: false
+    }), 'top-right');
+  }
+
+  serviceMapState.map.on('load', () => {
+    const map = serviceMapState.map;
+    map.addSource('service-zones', {
+      type: 'geojson',
+      data: SERVICE_ZONES
+    });
+
+    map.addLayer({
+      id: 'service-zones-fill',
+      type: 'fill',
+      source: 'service-zones',
+      paint: {
+        'fill-color': ['get', 'fill'],
+        'fill-opacity': 0.24
+      }
+    });
+
+    map.addLayer({
+      id: 'service-zones-outline',
+      type: 'line',
+      source: 'service-zones',
+      paint: {
+        'line-color': ['get', 'outline'],
+        'line-width': 2.2,
+        'line-opacity': 0.95
+      }
+    });
+
+    map.addLayer({
+      id: 'service-zones-active',
+      type: 'line',
+      source: 'service-zones',
+      filter: ['==', ['get', 'id'], '__none__'],
+      paint: {
+        'line-color': '#0c64b6',
+        'line-width': 4,
+        'line-opacity': 1
+      }
+    });
+
+    renderServiceZoneLabels();
+    renderServiceMapLegend();
+    setServiceMapStatus('Renkli alanlardan birine tıkla. Sistem mahalle ve cadde bilgisini otomatik dolduracak.', 'info');
+
+    const savedSelection = getSavedServiceSelection();
+    if (savedSelection) {
+      applyServiceSelectionToUI(savedSelection, {
+        persist: false,
+        syncMap: true
+      });
+    } else {
+      updateServiceZoneCard(null);
+    }
+  });
+
+  serviceMapState.map.on('mouseenter', 'service-zones-fill', () => {
+    serviceMapState.map.getCanvas().style.cursor = 'pointer';
+  });
+
+  serviceMapState.map.on('mouseleave', 'service-zones-fill', () => {
+    serviceMapState.map.getCanvas().style.cursor = '';
+    hideServiceZonePopup();
+  });
+
+  serviceMapState.map.on('mousemove', 'service-zones-fill', event => {
+    const feature = event.features?.[0];
+    if (!feature) return;
+    showServiceZonePopup(feature, event.lngLat);
+  });
+
+  serviceMapState.map.on('dragstart', hideServiceZonePopup);
+  serviceMapState.map.on('click', event => {
+    handleServiceMapClick(event.lngLat);
+  });
+}
+
+function openServiceMapModal(trigger) {
+  const overlay = document.getElementById('serviceMapOverlay');
+  if (!overlay) return;
+
+  serviceMapState.trigger = trigger || document.activeElement;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  syncBodyScrollState();
+  ensureServiceMap();
+
+  const savedSelection = getSavedServiceSelection();
+  if (savedSelection) {
+    applyServiceSelectionToUI(savedSelection, {
+      persist: false,
+      syncMap: true
+    });
+  }
+
+  requestAnimationFrame(() => {
+    serviceMapState.map?.resize();
+  });
+}
+
+function closeServiceMapModal() {
+  const overlay = document.getElementById('serviceMapOverlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
+
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  syncBodyScrollState();
+  serviceMapState.trigger?.focus?.();
+  serviceMapState.trigger = null;
+}
+
+document.getElementById('serviceMapLegend')?.addEventListener('click', event => {
+  const button = event.target.closest('.service-map-legend-btn[data-zone-id]');
+  if (!button) return;
+  focusServiceZoneById(button.dataset.zoneId);
+});
+
+document.getElementById('serviceMapAddressInput')?.addEventListener('input', event => {
+  serviceMapState.selectedAddress = event.target.value.trim();
+  updateServiceConfirmState();
+
+  const zone = getServiceZoneById(serviceMapState.selectedZoneId);
+  if (zone) {
+    updateServiceZoneCard(zone, { addressLine: serviceMapState.selectedAddress });
+  }
+});
+
+document.getElementById('serviceMapConfirmBtn')?.addEventListener('click', confirmServiceAddressSelection);
+
+document.querySelectorAll('[data-open-service-map]').forEach(trigger => {
+  trigger.addEventListener('click', event => {
+    event.preventDefault();
+    openServiceMapModal(trigger);
+  });
+});
+
+window.addEventListener('load', () => {
+  const savedSelection = getSavedServiceSelection();
+  if (savedSelection) {
+    applyServiceSelectionToUI(savedSelection, {
+      persist: false
+    });
+    return;
+  }
+
+  setTimeout(() => {
+    openServiceMapModal(document.querySelector('[data-open-service-map]'));
+  }, 320);
+});
+
+// Search input handler
+const mobileSearchInput = document.getElementById('mobileSearchInput');
+if (mobileSearchInput) {
+  mobileSearchInput.addEventListener('input', function() {
+    document.querySelector('.mobile-search-clear').style.display = this.value ? 'flex' : 'none';
+    performSearch(this.value);
+  });
+  
+  mobileSearchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileSearch();
+  });
+}
+
+// Toast notification
+function showToast(message) {
+  const existing = document.querySelector('.toast-message');
+  if (existing) existing.remove();
+  
+  const toast = document.createElement('div');
+  toast.className = 'toast-message';
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    max-width: 90%;
+    text-align: center;
+  `;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  requestAnimationFrame(() => {
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+  });
+  
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(100px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+
+// Pull to refresh hint on mobile
+let pullStartY = 0;
+let isPulling = false;
+document.addEventListener('touchstart', (e) => {
+  if (window.scrollY === 0) {
+    pullStartY = e.touches[0].clientY;
+    isPulling = true;
+  }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+  if (!isPulling) return;
+  const diff = e.touches[0].clientY - pullStartY;
+  if (diff > 100 && window.scrollY === 0) {
+    // Pull to refresh gesture detected
+    isPulling = false;
+  }
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
+  isPulling = false;
+});
+
+// Touch swipe to close mobile cart
+let touchStartY = 0;
+const panel = document.getElementById('mobileCartPanel');
+panel.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+});
+panel.addEventListener('touchmove', (e) => {
+  const diff = e.touches[0].clientY - touchStartY;
+  if (diff > 60) closeMobileCart();
+});
+</script>
+</body>
+</html>
